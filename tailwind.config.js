@@ -15,6 +15,18 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            fontSize : {
+                'xxs' : '.5rem',
+            },
+            colors: {
+                'my_red' : '#BE3144',
+                'my_gray' : '#303841',
+                'my_gray2' : '#3A4750',
+                'my_white' : '#D3D6DB',
+            },
+            backgroundImage: {
+                'hero-pattern': "url('./peakpx.jpg')",
+            },
         },
     },
 
