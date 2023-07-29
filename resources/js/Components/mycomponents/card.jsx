@@ -21,7 +21,9 @@ function card( {movie}) {
     const bg = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
     return (
         <div className="relative w-32 grid gap-3">
-            <Link>
+            <Link
+             href={`/MoviePage/${movie.id}`}
+            >
                 <img className="rounded" src={bg} alt={movie.title} />
             </Link>
             <div className=" relative rounded-full -mt-8 ml-1">

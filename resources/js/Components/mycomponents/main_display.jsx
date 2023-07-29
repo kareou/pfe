@@ -18,12 +18,7 @@ function main_display() {
     };
     useEffect(() => {
         fetchMovies("/trending/movie/day").then(setAll);
-        // fetchMovieVideos("/movie/346698/videos").then(setMovies);
-        // fetchMovieDetails("346698").then(setSearch);
     }, []);
-    // const filteres = movies.filter(
-    //     (movie) => movie.type === "Trailer" && movie.name === "Main Trailer"
-    // );
     function getBg(path) {
         return `https://image.tmdb.org/t/p/w500/${path}`;
     }
@@ -90,7 +85,7 @@ function main_display() {
         fetchVideoId();
     }, [all[i]?.id]);
     return (
-        <div className="flex gap-8">
+        <div className="flex gap-8 mt-10">
             <div className="vid w-[850px] h-[548px] relative">
                 {play && (
                     <>
@@ -154,7 +149,7 @@ function main_display() {
                         />
                         <div className="absolute mx-12 bottom-5 flex gap-4 z-40">
                             <img
-                                className=" w-[165px] h-[244px] shadow rounded shadow-my_white"
+                                className=" w-[165px] h-[244px] shadow rounded"
                                 src={getBg(all[i]?.poster_path)}
                                 alt=""
                             />
@@ -177,13 +172,13 @@ function main_display() {
             </div>
             <div className="wait grid">
                 <h5 className="font-bold text-xl text-my_gray2 underline">
-                    More
+                    Next
                 </h5>
                 <div className="h-[510px] w-[400px] bg-my_gray rounded p-4 grid gap-4">
                     {all.slice(i + 1, 3 + i + 1).map((al, i) => (
                         <div key={i} className="flex gap-2 h-[130px] w-[80]">
                             <img
-                                className="h-full"
+                                className="h-full rounded shadow-md"
                                 src={getBg(al.poster_path)}
                                 alt=""
                             />

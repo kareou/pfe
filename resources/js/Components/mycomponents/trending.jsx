@@ -25,7 +25,7 @@ const MovieList = ( {type} ) => {
   }, []);
 
   return (
-    <div className="scroll-container relative">
+    <div className="scroll-container relative mt-10">
         {back &&
             <img className='absolute h-[80%] w-full' src={photo} alt="" />
         }
