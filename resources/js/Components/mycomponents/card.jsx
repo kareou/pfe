@@ -20,7 +20,7 @@ function card( {movie}) {
     const progress  = Math.round( movie.vote_average * 10);
     const bg = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
     return (
-        <div className="relative w-32 grid gap-3">
+        <div className="relative w-32 grid gap-3 drop-shadow-lg">
             <Link
              href={`/MoviePage/${movie.id}`}
             >

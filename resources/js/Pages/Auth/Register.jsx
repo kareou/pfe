@@ -14,6 +14,7 @@ export default function Register() {
         name: "",
         email: "",
         password: "",
+        Image : "",
         password_confirmation: "",
     });
 
@@ -27,7 +28,7 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-
+        // setData("Image", "https://ui-avatars.com/api/?name=" + data.name);
         post(route("register"));
     };
 
@@ -56,7 +57,7 @@ export default function Register() {
                             Sign up with Google
                         </span>
                     </button>
-                    <div className="flex items-center my-4">
+                    <div className="flex items-center mt-4">
                         <div className="flex-grow border-t border-my_gray/60"></div>
                         <div className="mx-4 text-lg text-my_gray2">Or</div>
                         <div className="flex-grow border-t border-my_gray/60"></div>
@@ -69,6 +70,13 @@ export default function Register() {
                             Sign up with Email
                         </span>
                     </button>
+                    <Link
+                        className="flex justify-center text-sm text-my_gray2 hover:text-my_red/50"
+                        href={route("login")}
+                    >
+                        <span className="">Already have an account?</span>
+                        <span className="underline">Sign In</span>
+                    </Link>
                 </div>
             )}
             {show && (
@@ -76,7 +84,8 @@ export default function Register() {
                     <h1 className=" text-2xl text-my_gray2 font-extrabold mb-5">
                         Sign up to Sitednm
                     </h1>
-                    <button className=" -top-0 -left-5 absolute border border-my_gray w-10 h-10 rounded flex justify-center place-items-center"
+                    <button
+                        className=" -top-0 -left-5 absolute border border-my_gray w-10 h-10 rounded flex justify-center place-items-center"
                         onClick={() => setShow(!show)}
                     >
                         <IoIosArrowBack className="w-6 h-6 mr-2" />
@@ -175,6 +184,15 @@ export default function Register() {
                                 className="mt-2"
                             />
                         </div>
+                        <input
+                            type="file"
+                            name="avatar"
+                            id="avatar"
+                            accept="image/png, image/jpeg"
+                            onChange={(e) =>
+                                setData("image", e.target.files[0])
+                            }
+                        />
 
                         <div className="grid grid-row-2 gap-4 mt-4">
                             <PrimaryButton
@@ -187,8 +205,10 @@ export default function Register() {
                                 className="flex justify-center text-sm text-my_gray2 hover:text-my_red/50"
                                 href={route("login")}
                             >
-                                <span className="">Don't have an account?</span>
-                                <span className="underline">Sign Up</span>
+                                <span className="">
+                                    Already have an account?
+                                </span>
+                                <span className="underline">Sign In</span>
                             </Link>
                         </div>
                     </form>

@@ -35,7 +35,11 @@ Route::get('/MoviePage/{movie}',function($movie){
     ]);
 })->name('movie');
 
-
+// Route::get('/link', function () {
+//     $target = storage_path('app/public');
+//     $shortcut = public_path('storage');
+//     symlink($target, $shortcut);
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

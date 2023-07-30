@@ -34,12 +34,23 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:'.User::class,
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public');
+        }
+        else
+        {
+            $imagePath = 'https://ui-avatars.com/api/?name='.urlencode($request->name).'&background=random';
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'image' => $imagePath,
             'password' => Hash::make($request->password),
         ]);
 

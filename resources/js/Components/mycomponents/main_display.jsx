@@ -27,6 +27,7 @@ function main_display() {
     }
     const [i, setI] = useState(0);
 
+
     useEffect(() => {
         const intervalId = setInterval(() => {
             if (play || !all.length) return;
@@ -85,8 +86,8 @@ function main_display() {
         fetchVideoId();
     }, [all[i]?.id]);
     return (
-        <div className="flex gap-8 mt-10">
-            <div className="vid w-[850px] h-[548px] relative">
+        <div className="flex gap-8 mt-10 mx-4">
+            <div className="vid w-[850px] h-[548px] relative drop-shadow-lg">
                 {play && (
                     <>
                         {!ready && (
@@ -138,12 +139,12 @@ function main_display() {
                         <img
                             className="p-[20px 12px] absolute left-5 h-16 top-52 cursor-pointer"
                             src={next}
-                            onclick={() => setI((i) => (i + 1) % all.length)}
+                            onclick={ () => setI((i + 1) % all.length)}
                             alt=""
                         />
                         <img
                             className="p-[20px 12px] absolute right-5 h-16 top-52 cursor-pointer"
-                            onclick={() => setI((i) => (i - 1) % all.length)}
+                            onclick={ () => setI((i + 1) % all.length)}
                             src={prev}
                             alt=""
                         />
@@ -170,7 +171,7 @@ function main_display() {
                     </>
                 )}
             </div>
-            <div className="wait grid">
+            <div className="wait grid drop-shadow-lg">
                 <h5 className="font-bold text-xl text-my_gray2 underline">
                     Next
                 </h5>

@@ -5,7 +5,7 @@ import { CiSearch } from "react-icons/ci";
 function nav({ auth }) {
     return (
         <div>
-            <nav className="flex justify-around">
+            <nav className="flex justify-around place-items-center">
                 <Link href={route("welcome")}> Logo </Link>
                 <div className="flex gap-2 ">
                     <div className="flex shadow-md text-center border rounded-md px-2 border-my_gray">
@@ -31,21 +31,21 @@ function nav({ auth }) {
                     {auth.user ? (
                         <Link
                             href={route("dashboard")}
-                            className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                            className="font-semibold text-gray-600  hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
                         >
                             Dashboard
                         </Link>
                     ) : (
                         <>
                             <Link
-                                className=" shadow-md rounded text-center font-semibold bg-my_red w-20 text-my_white"
+                                className=" shadow-md rounded  flex justify-center place-items-center text-center font-semibold bg-my_red w-20 h-8 text-my_white"
                                 href={route("login")}
                             >
                                 Log in
                             </Link>
 
                             <Link
-                                className=" shadow-md rounded text-center font-semibold bg-my_gray w-20 text-my_white"
+                                className=" shadow-md rounded flex justify-center place-items-center text-center font-semibold bg-my_gray w-20 h-8 text-my_white"
                                 href={route("register")}
                             >
                                 Register
