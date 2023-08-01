@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\SocialiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,11 +37,12 @@ Route::get('/MoviePage/{movie}',function($movie){
     ]);
 })->name('movie');
 
-// Route::get('/link', function () {
-//     $target = storage_path('app/public');
-//     $shortcut = public_path('storage');
-//     symlink($target, $shortcut);
-// });
+Route::get('/login/redirect', [SocialiteController::class, 'redirect'])->name('login.redirect');
+Route::get('/login/callback', [SocialiteController::class, 'callback'])->name('login.callback');
+
+Route::get('/register/redirect', [SocialiteController::class, 'rredirect'])->name('register.redirect');
+Route::get('/register/callback', [SocialiteController::class, 'rcallback'])->name('register.callback');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

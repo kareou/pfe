@@ -48,15 +48,17 @@ export default function Login({ status, canResetPassword }) {
             </div>
             <div className="p-8 ml-24 grid gap-1 ">
                 <h1 className=" text-2xl text-my_gray2 font-bold">
-                    Sign in to sitednm
+                    Sign in to moviedb
                 </h1>
 
-                <button className="flex items-center border border-my_gray/60 justify-center mt-4 w-96 h-12 bg-my_blue text-my_gray2 rounded-md">
+                <a
+                 href={route("login.redirect")}
+                className="flex items-center border border-my_gray/60 justify-center mt-4 w-96 h-12 bg-my_blue text-my_gray2 rounded-md">
                     <FcGoogle className="w-6 h-6 mr-2" />
                     <span className="text-sm font-semibold">
                         Sign in with Google
                     </span>
-                </button>
+                </a>
 
                 <div className="flex items-center my-4">
                     <div className="flex-grow border-t border-my_gray/60"></div>
