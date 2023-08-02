@@ -51,12 +51,14 @@ export default function Register() {
                     <h1 className=" text-2xl text-my_gray2 font-bold">
                         Sign up to Sitednm
                     </h1>
-                    <button className="flex items-center border border-my_gray/60 justify-center mt-4 w-96 h-12 bg-my_blue text-my_gray2 rounded-md">
+                    <a
+                    href={route("register.redirect")}
+                    className="flex items-center border border-my_gray/60 justify-center mt-4 w-96 h-12 bg-my_blue text-my_gray2 rounded-md">
                         <FcGoogle className="w-6 h-6 mr-2" />
                         <span className="text-sm font-semibold">
                             Sign up with Google
                         </span>
-                    </button>
+                    </a>
                     <div className="flex items-center mt-4">
                         <div className="flex-grow border-t border-my_gray/60"></div>
                         <div className="mx-4 text-lg text-my_gray2">Or</div>

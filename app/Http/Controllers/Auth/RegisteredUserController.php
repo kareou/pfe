@@ -41,10 +41,8 @@ class RegisteredUserController extends Controller
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('public');
-        }
-        else
-        {
-            $imagePath = 'https://ui-avatars.com/api/?name='.urlencode($request->name).'&background=random';
+        } else {
+            $imagePath = null;
         }
 
         $user = User::create([
