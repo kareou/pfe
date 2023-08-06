@@ -50,4 +50,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/actor/{actor}',function($actor){
+    return Inertia::render('actor',[
+        'actor' => $actor
+    ]);
+})->name('actors');
+
 require __DIR__.'/auth.php';

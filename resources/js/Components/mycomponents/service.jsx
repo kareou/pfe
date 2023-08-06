@@ -49,3 +49,22 @@ export const fetchMovieKeywords = async (id) => {
     const response = await axios.get(`${BASE_URL}/movie/${id}/keywords?api_key=${API_KEY}`);
     return response.data.keywords
 }
+export const fetchActor = async (id) => {
+    const response = await axios.get(`${BASE_URL}/person/${id}?api_key=${API_KEY}`);
+    return response.data
+}
+
+export const fetchActorKnownFor = async (id) => {
+    const response = await axios.get(`${BASE_URL}/person/${id}/movie_credits?api_key=${API_KEY}`);
+    return response.data.cast
+}
+
+export const fetchActorSocial = async (id) => {
+    const response = await axios.get(`${BASE_URL}/person/${id}/external_ids?api_key=${API_KEY}`);
+    return response.data
+}
+
+export const fetchActorImages = async (id) => {
+    const response = await axios.get(`${BASE_URL}/person/${id}/images?api_key=${API_KEY}`);
+    return response.data.profiles
+}

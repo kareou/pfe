@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchMovieCredits } from "./service";
 import { BiRightArrowAlt } from "react-icons/bi";
+import { Link } from "@inertiajs/react";
 
 function cast({ movie }) {
     const [cast, setCast] = useState([]);
@@ -20,11 +21,15 @@ function cast({ movie }) {
                         key={actor.id}
                         className="flex flex-col bg-white rounded-md shadow-md w-[130px] "
                     >
+                        <Link
+                            href={`/actor/${actor.id}`}
+                        >
                         <img
                             src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
                             alt=""
-                            className="w-[130px] h-[170px] rounded-md  "
+                            className="w-[130px] h-[170px] rounded-tl-md rounded-tr-md  "
                         />
+                        </Link>
                         <div className=" text-start p-2">
                             <h1 className="text-my_gray2 font-bold">
                                 {actor.name}

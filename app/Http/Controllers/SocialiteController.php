@@ -25,10 +25,9 @@ class SocialiteController extends Controller
             return redirect('/dashboard');
         }
         else {
-            return response()->json(['message' => 'Email exists']);
-            // return redirect()->route('login')->withErrors([
-            //     'email' => 'Email does not exist'
-            // ]);
+            return redirect()->route('login')->withErrors([
+                'email' => 'Email does not exist'
+            ]);
         }
 
     }

@@ -5,7 +5,7 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { FcGoogle } from "react-icons/fc";
 import vid from "../../../../../../Downloads/pexels-tima-miroshnichenko-7989632 (2160p).mp4";
 
@@ -15,6 +15,10 @@ export default function Login({ status, canResetPassword }) {
         password: "",
         remember: false,
     });
+
+    const errcheck = usePage().props;
+
+    console.log(errcheck);
 
     useEffect(() => {
         return () => {
@@ -51,8 +55,9 @@ export default function Login({ status, canResetPassword }) {
                 </h1>
 
                 <a
-                 href={route("login.redirect")}
-                className="flex items-center border border-my_gray/60 justify-center mt-4 w-96 h-12 bg-my_blue text-my_gray2 rounded-md">
+                    href={route("login.redirect")}
+                    className="flex items-center border border-my_gray/60 justify-center mt-4 w-96 h-12 bg-my_blue text-my_gray2 rounded-md"
+                >
                     <FcGoogle className="w-6 h-6 mr-2" />
                     <span className="text-sm font-semibold">
                         Sign in with Google
@@ -82,6 +87,10 @@ export default function Login({ status, canResetPassword }) {
                             onChange={(e) => setData("email", e.target.value)}
                         />
 
+                        <InputError
+                            message={errcheck.errors.email}
+                            className="mt-2"
+                        />
                         <InputError message={errors.email} className="mt-2" />
                     </div>
 
