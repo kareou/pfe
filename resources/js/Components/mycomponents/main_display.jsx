@@ -7,12 +7,14 @@ import prev from "../../../../../../Downloads/Group 60.svg";
 import next from "../../../../../../Downloads/Group 61.svg";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
+import { Link } from "@inertiajs/react";
 
 function main_display() {
     const [search, setSearch] = useState("");
     const [play, setPlay] = useState(false);
     const [ready, setReady] = useState(false);
     const [all, setAll] = useState([]);
+    const [reset, setReset] = useState(false);
     const handelred = () => {
         setReady(true);
     };
@@ -27,14 +29,14 @@ function main_display() {
     }
     const [i, setI] = useState(0);
 
-
     useEffect(() => {
         const intervalId = setInterval(() => {
             if (play || !all.length) return;
+
             setI((i) => (i + 1) % all.length);
         }, 5000);
         return () => clearInterval(intervalId);
-    }, [all.length, play]);
+    }, [all.length, play, i]);
 
     const getTraillers = async (id) => {
         let movies;
@@ -56,6 +58,13 @@ function main_display() {
             movies = data;
         });
         return movies;
+    };
+
+    const sideretag = async (id) => {
+        let tag;
+        tag = await gettags(id);
+        console.log(tag);
+        return tag.tagline;
     };
 
     let [videoId, setVideoId] = useState(null);
@@ -85,6 +94,7 @@ function main_display() {
         };
         fetchVideoId();
     }, [all[i]?.id]);
+
     return (
         <div className="flex gap-8 mt-10 mx-4">
             <div className="vid w-[850px] h-[548px] relative drop-shadow-lg">
@@ -136,24 +146,36 @@ function main_display() {
                                 backgroundSize: "cover",
                             }}
                         ></div>
+
                         <img
                             className="p-[20px 12px] absolute left-5 h-16 top-52 cursor-pointer"
+                            onClick={() =>
+                                setI(
+                                    (prevI) =>
+                                        (prevI - 1 + all.length) % all.length
+                                )
+                            }
                             src={next}
-                            onclick={ () => setI((i + 1) % all.length)}
                             alt=""
                         />
                         <img
                             className="p-[20px 12px] absolute right-5 h-16 top-52 cursor-pointer"
-                            onclick={ () => setI((i + 1) % all.length)}
+                            onClick={() =>
+                                setI((prevI) => (prevI + 1) % all.length)
+                            }
                             src={prev}
                             alt=""
                         />
                         <div className="absolute mx-12 bottom-5 flex gap-4 z-40">
-                            <img
-                                className=" w-[165px] h-[244px] shadow rounded"
-                                src={getBg(all[i]?.poster_path)}
-                                alt=""
-                            />
+                            <Link
+                                href={`/MoviePage/${all[i]?.id}`}
+                            >
+                                <img
+                                    className=" w-[165px] h-[244px] shadow rounded"
+                                    src={getBg(all[i]?.poster_path)}
+                                    alt=""
+                                />
+                            </Link>
                             <div className=" text-my_white font-bold">
                                 <h1 className=" text-2xl">{all[i]?.title}</h1>
                                 <h2 className=" text-xl">{tags}</h2>
@@ -176,16 +198,20 @@ function main_display() {
                     Next
                 </h5>
                 <div className="h-[510px] w-[400px] bg-my_gray rounded p-4 grid gap-4">
-                    {all.slice(i + 1, 3 + i + 1).map((al, i) => (
+                    {all && all.slice(i + 1, 3 + i + 1).map((al, i) => (
                         <div key={i} className="flex gap-2 h-[130px] w-[80]">
+                            <Link
+                                href={`/MoviePage/${al.id}`}
+                            >
                             <img
                                 className="h-full rounded shadow-md"
                                 src={getBg(al.poster_path)}
                                 alt=""
                             />
+                            </Link>
                             <div className=" text-my_white font-bold">
                                 <h1 className=" text-lg">{al.title}</h1>
-                                <h2 className=" text-md">{tags}</h2>
+                                <h2 className=" text-sm font-thin">{al.release_date}</h2>
                             </div>
                         </div>
                     ))}

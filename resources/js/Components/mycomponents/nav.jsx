@@ -1,8 +1,11 @@
 import React from "react";
 import { Link, Head } from "@inertiajs/react";
 import { CiSearch } from "react-icons/ci";
+import Dropdown from "./profile_dropdown";
 
 function nav({ auth }) {
+
+
     return (
         <div>
             <nav className="flex justify-around place-items-center">
@@ -29,12 +32,7 @@ function nav({ auth }) {
                 </div>
                 <div className="flex gap-4">
                     {auth.user ? (
-                        <Link
-                            href={route("dashboard")}
-                            className="font-semibold text-gray-600  hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                        >
-                            Dashboard
-                        </Link>
+                        <Dropdown user={auth.user} />
                     ) : (
                         <>
                             <Link

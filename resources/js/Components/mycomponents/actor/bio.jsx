@@ -19,16 +19,17 @@ function bio({ knownFor, actor, sorted, social }) {
 
     const image = `https://image.tmdb.org/t/p/w500/${actor.profile_path}`;
     return (
-        <div className="flex flex-row nowrap items-start content-start gap-8 box-border overflow-hidden">
-            <div className="w-full">
+        <div className="flex flex-row nowrap items-start content-start box-border overflow-hidden">
+            <div className="w-[40%]">
                 <img
-                    className=" h-[450px] rounded-md drop-shadow-md"
+                    className=" w-[300px] h-[450px] rounded-md drop-shadow-md"
                     src={image}
                     alt=""
                 />
                 <div className=" flex gap-4 mt-5">
                     {social.facebook_id && (
                         <a
+                            target="_blank"
                             href={`https://www.facebook.com/${social.facebook_id}`}
                         >
                             <BsFacebook className="text-3xl" />
@@ -36,13 +37,17 @@ function bio({ knownFor, actor, sorted, social }) {
                     )}
                     {social.instagram_id && (
                         <a
+                            target="_blank"
                             href={`https://www.instagram.com/${social.instagram_id}`}
                         >
                             <BsInstagram className="text-3xl" />
                         </a>
                     )}
                     {social.twitter_id && (
-                        <a href={`https://twitter.com/${social.twitter_id}`}>
+                        <a
+                            target="_blank"
+                            href={`https://twitter.com/${social.twitter_id}`}
+                        >
                             <BsTwitter className="text-3xl" />
                         </a>
                     )}
@@ -85,14 +90,15 @@ function bio({ knownFor, actor, sorted, social }) {
                     </div>
                 </div>
             </div>
-            <div className=" grid gap-2">
+            <div className=" w-full grid gap-2">
                 <h1 className=" text-2xl font-extrabold">{actor.name}</h1>
                 <h2 className=" text-xl font-semibold">Biographie</h2>
-                {actor.biography && actor.biography.split("\n").map((paragraph, index) => (
-                    <p key={index} className="text-justify text-base">
-                        {paragraph}
-                    </p>
-                ))}
+                {actor.biography &&
+                    actor.biography.split("\n").map((paragraph, index) => (
+                        <p key={index} className="text-justify text-base">
+                            {paragraph}
+                        </p>
+                    ))}
                 <div className=" box-border grid gap-1">
                     <h2 className=" text-xl font-semibold">Known for</h2>
                     <div className="scroll-container gap-2">
@@ -107,12 +113,12 @@ function bio({ knownFor, actor, sorted, social }) {
                 </div>
                 <div>
                     <div className="grid gap-3 mt-5">
-                    <div className="flex items-center gap-1">
-                        <div className="w-[5px] h-[40px] bg-my_red"></div>
-                        <h1 className=" text-my_gray2 text-xl font-bold">
-                            Carriére
-                        </h1>
-                    </div>
+                        <div className="flex items-center gap-1">
+                            <div className="w-[5px] h-[40px] bg-my_red"></div>
+                            <h1 className=" text-my_gray2 text-xl font-bold">
+                                Carriére
+                            </h1>
+                        </div>
                         <Carrier sorted={sorted} />
                     </div>
                 </div>
