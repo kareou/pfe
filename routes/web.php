@@ -50,6 +50,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('/favorite', [ProfileController::class, 'addfavorite'])->name('addfavorite');
+Route::post('/watchlist', [ProfileController::class, 'addwatchlist'])->name('addwatchlist');
+Route::post('/watched', [ProfileController::class, 'addwatched'])->name('addwatched');
+
 Route::get('/actor/{actor}',function($actor){
     return Inertia::render('actor',[
         'actor' => $actor

@@ -76,3 +76,12 @@
       transform: translateX(0%);
     }
 }
+
+@font-face {
+    font-family: rust;
+    src: url(../../storage//app//font/IntroRustG-Base2Line.otf);
+}
+
+.rust{
+    font-family: rust;
+}

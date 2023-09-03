@@ -13,19 +13,22 @@ import {
 } from "../Components/mycomponents/service";
 import { usePage } from "@inertiajs/react";
 import Nav from "../Components/mycomponents/nav";
+import { useForm } from "@inertiajs/react";
 
 function MoviePqge(props, { auth }) {
     const [movie, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    const { fav, setfav, post, processing } = useForm({
+        movie_id: props.movie,
+    });
+
     const id = props.movie;
-    console.log(id);
     useEffect(() => {
         fetchMovieDetails(id)
             .then(setMovies)
             .finally(() => setIsLoading(false));
     }, [id]);
-    console.log(movie);
 
     function convertRuntime(runtime) {
         const hours = Math.floor(runtime / 60);
@@ -37,6 +40,32 @@ function MoviePqge(props, { auth }) {
         return `https://image.tmdb.org/t/p/original/${path}`;
     }
 
+    const [infav, setinfav] = useState(false);
+    const [inwatchlist, setinwatchlist] = useState(false);
+    const [inwatched, setinwatched] = useState(false);
+
+    const page = usePage();
+
+    useEffect(() => {
+        if (page.props.auth.user.favorite && page.props.auth.user.favorite.includes(props.movie)) {
+            setinfav(true);
+        }
+
+        if (page.props.auth.user.watchlist && page.props.auth.user.watchlist.includes(props.movie)) {
+            setinwatchlist(true);
+        }
+
+        if (page.props.auth.user.watched && page.props.auth.user.watched.includes(props.movie)) {
+            setinwatched(true);
+        }
+    }, [page.props.auth.user]);
+
+
+
+    const fcolor = infav ? "#D3D6DB" : "#303841";
+    const wcolor = inwatchlist ? "#D3D6DB" : "#303841";
+    const wacolor = inwatched ? "#D3D6DB" : "#303841";
+
     function changeColor(progress) {
         if (progress < 40) {
             return "#BE3144";
@@ -46,7 +75,21 @@ function MoviePqge(props, { auth }) {
             return "#21D07A";
         }
     }
-    const page = usePage();
+
+    function submit(e) {
+        e.preventDefault();
+        post("/favorite");
+    }
+
+    function submit2(e) {
+        e.preventDefault();
+        post("/watchlist");
+    }
+
+    function submit3(e) {
+        e.preventDefault();
+        post("/watched");
+    }
 
     return (
         <>
@@ -78,8 +121,7 @@ function MoviePqge(props, { auth }) {
                                         className="rounded"
                                         src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                                         alt=""
-                                        style={{
-                                        }}
+                                        style={{}}
                                         srcSet=""
                                     />
                                 </div>
@@ -113,15 +155,27 @@ function MoviePqge(props, { auth }) {
                                         </p>
                                     </div>
                                     <div className="flex gap-8 text-lg">
-                                        <div className="flex justify-center items-center  rounded-full bg-my_red w-12 h-12 shadow">
-                                            <MdOutlineFavorite />
-                                        </div>
-                                        <div className="flex justify-center items-center  rounded-full bg-my_red w-12 h-12 shadow">
-                                            <BsFillBookmarkFill />
-                                        </div>
-                                        <div className="flex justify-center items-center  rounded-full bg-my_red w-12 h-12 shadow">
-                                            <TiThList />
-                                        </div>
+                                        <form onSubmit={submit}>
+                                            <button className="flex justify-center items-center  rounded-full bg-my_red w-12 h-12 shadow">
+                                                <MdOutlineFavorite
+                                                    style={{ color: fcolor }}
+                                                />
+                                            </button>
+                                        </form>
+                                        <form onSubmit={submit2}>
+                                            <button className="flex justify-center items-center  rounded-full bg-my_red w-12 h-12 shadow">
+                                                <BsFillBookmarkFill
+                                                    style={{ color: wcolor }}
+                                                />
+                                            </button>
+                                        </form>
+                                        <form onSubmit={submit3}>
+                                            <button className="flex justify-center items-center  rounded-full bg-my_red w-12 h-12 shadow">
+                                                <TiThList
+                                                    style={{ color: wacolor }}
+                                                />
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                                 <div className="absolute rounded-full right-20 ">

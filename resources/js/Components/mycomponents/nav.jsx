@@ -9,7 +9,13 @@ function nav({ auth }) {
     return (
         <div>
             <nav className="flex justify-around place-items-center">
-                <Link href={route("welcome")}> Logo </Link>
+                <Link className="rust text-my_gray2 text-xl" href={route("welcome")}>
+                     Movie
+                    <span className=" text-my_red">
+
+                     DB
+                    </span>
+                     </Link>
                 <div className="flex gap-2 ">
                     <div className="flex shadow-md text-center border rounded-md px-2 border-my_gray">
                         <form
@@ -23,7 +29,6 @@ function nav({ auth }) {
                                 type="search"
                                 placeholder="Find a movie"
                             />
-                            {/* Add a submit button here if needed */}
                         </form>
 
                         <CiSearch className="text-my_gray2 text-lg text-center h-7" />

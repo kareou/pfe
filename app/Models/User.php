@@ -25,6 +25,10 @@ class User extends Authenticatable
         'provider',
         'provider_id',
         'email_verified_at',
+        'favorite',
+        'movies',
+        'watched',
+        'watchlist',
         'remember_token',
         'provider_token',
         'provider_refresh_token',
@@ -48,5 +52,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'movies' => 'array',
+        'watched' => 'array',
+        'watchlist' => 'array',
+        'favorite' => 'array',
     ];
 }
