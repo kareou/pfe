@@ -37,6 +37,12 @@ Route::get('/MoviePage/{movie}',function($movie){
     ]);
 })->name('movie');
 
+Route::get('/TvPage/{tv}',function($tv){
+    return Inertia::render('TvPage',[
+        'movie' => $tv
+    ]);
+})->name('tv');
+
 Route::get('/login/redirect', [SocialiteController::class, 'redirect'])->name('login.redirect');
 Route::get('/login/callback', [SocialiteController::class, 'callback'])->name('login.callback');
 
@@ -53,6 +59,13 @@ Route::middleware('auth')->group(function () {
 Route::post('/favorite', [ProfileController::class, 'addfavorite'])->name('addfavorite');
 Route::post('/watchlist', [ProfileController::class, 'addwatchlist'])->name('addwatchlist');
 Route::post('/watched', [ProfileController::class, 'addwatched'])->name('addwatched');
+
+Route::get('/shows/{keyword}-{type}-{name}',function($keyword,$name,$type){
+    return Inertia::render('Keywordl',[
+        'keyword' => $keyword,
+        'type' => $type
+    ]);
+});
 
 Route::get('/actor/{actor}',function($actor){
     return Inertia::render('actor',[

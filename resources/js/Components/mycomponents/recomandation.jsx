@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { fetchMovieRecomandations } from "./service";
+import { fetchMovieRecomandations, fetchTvRecomandations } from "./service";
 
-function recomandation({ movie }) {
+function recomandation({ movie, type }) {
     const [recomandation, setRecomandation] = useState([]);
 
+    if(type === "movie"){
     useEffect(() => {
         fetchMovieRecomandations(movie.id).then(setRecomandation);
     }, [movie.id]);
+    }else{
+        useEffect(() => {
+            fetchTvRecomandations(movie.id).then(setRecomandation);
+        }, [movie.id]);
+    }
+
 
     // console.log(recomandation);
     const start = Math.random() * 10;
@@ -19,21 +26,23 @@ function recomandation({ movie }) {
             </div>
         <div className="flex gap-4 scroll-container h-[300px]">
             {recomandation.slice(start,5 + start).map((recomand) => (
-                <div key={recomand.id} className="w-[250px] h-[125px]">
-                    <img
-                        src={`https://image.tmdb.org/t/p/w500/${recomand.poster_path}`}
-                        alt="recomand"
-                        className="w-[250px] h-[125px] rounded-md"
-                    />
-                    <h1 className=" text-my_gray2 font-bold flex justify-between mt-2">
-                        <span>
-                        {recomand.title}
-                        </span>
-                        <span>
-                            {Math.round(recomand.vote_average * 10)}
-                        </span>
-                        </h1>
+                <div key={recomand.id} className="w-[250px] h-[250px] shadow-lg rounded-md overflow-hidden bg-white">
+                <img
+                  src={`https://image.tmdb.org/t/p/w400/${recomand.poster_path}`}
+                  alt="recomand"
+                  className="w-full h-[125px] object-cover"
+                />
+                <div className="p-4">
+                  <h1 className="text-my_gray2 font-bold truncate">
+                    {recomand.title}
+                  </h1>
+                  <p className="text-my_gray2 font-bold mt-2">
+                    {Math.round(recomand.vote_average * 10)} / 100
+                  </p>
                 </div>
+
+              </div>
+
             ))}
         </div>
         </div>

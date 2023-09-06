@@ -8,8 +8,7 @@ import Media from "../Components/mycomponents/media";
 import Recomandation from "../Components/mycomponents/recomandation";
 import { useState, useEffect } from "react";
 import {
-    fetchMovieDetails,
-    fetchMovieVideos,
+    fetchTv,
 } from "../Components/mycomponents/service";
 import { usePage } from "@inertiajs/react";
 import Nav from "../Components/mycomponents/nav";
@@ -20,12 +19,12 @@ function MoviePqge(props, { auth }) {
     const [isLoading, setIsLoading] = useState(true);
 
     const { fav, setfav, post, processing } = useForm({
-        movie_id: props.movie + ":m",
+        movie_id: props.movie + ":t",
     });
 
     const id = props.movie;
     useEffect(() => {
-        fetchMovieDetails(id)
+        fetchTv(id)
             .then(setMovies)
             .finally(() => setIsLoading(false));
     }, [id]);
@@ -138,10 +137,18 @@ function MoviePqge(props, { auth }) {
                                 <div className="pt-8 grid relative">
                                     <div>
                                         <h1 className="font-bold text-2xl">
-                                            {movie.title}
+                                            {movie.name}
                                         </h1>
                                         <h3 className="flex gap-2 font-thin text-sm">
-                                            <li>{movie.release_date}</li>
+                                            <li>
+                                                <span className=" font-bold">
+                                                    first air date : </span>
+                                                 {movie.first_air_date}</li>
+                                            <li>
+                                                <span className=" font-bold">
+                                                    last air date : </span>
+                                                {movie.last_air_date}
+                                            </li>
                                             <li>
                                                 {convertRuntime(movie.runtime)}
                                             </li>
@@ -209,9 +216,9 @@ function MoviePqge(props, { auth }) {
                             </div>
                         </div>
                         <div className="p-8 grid gap-8">
-                            <Cast movie={movie} />
-                            <Media movie={movie} />
-                            <Recomandation movie={movie} />
+                            <Cast movie={movie} type={"tv"} />
+                            <Media movie={movie} type={"tv"} />
+                            <Recomandation movie={movie} type={"tv"} />
                         </div>
                     </div>
                 </div>

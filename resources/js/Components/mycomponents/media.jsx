@@ -5,11 +5,13 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Videos from "./videos";
 import Backdrops from "./Backdrops";
 import Poste from "./Posters";
-import { fetchMovieVideos, fetchMovieBackdrops, fetchMoviePosters, fetchMovieKeywords } from "./service";
+import { fetchMovieVideos, fetchMovieBackdrops, fetchMoviePosters, fetchMovieKeywords,
+    fetchTvKeywords, fetchTvVideos, fetchTvBackdrops, fetchTvPosters
+} from "./service";
 import videos from "./videos";
 import Keywords from "./keywords";
 
-function media({ movie }) {
+function media({ movie,type }) {
     const theme = createTheme({
         components: {
             MuiTabs: {
@@ -30,15 +32,27 @@ function media({ movie }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const backdropsData = await fetchMovieBackdrops(movie.id);
-                const mediaData = await fetchMovieVideos(`/movie/${movie.id}/videos`);
-                const postersData = await fetchMoviePosters(movie.id);
-                const keywordData = await fetchMovieKeywords(movie.id);
+                var backdropsData = [];
+                var mediaData = [];
+                var postersData = [];
+                var keywordData = [];
+                if(type === "movie"){
+                    backdropsData= await fetchMovieBackdrops(movie.id);
+                 mediaData = await fetchMovieVideos(`/movie/${movie.id}/videos`);
+                 postersData = await fetchMoviePosters(movie.id);
+                 keywordData = await fetchMovieKeywords(movie.id);
+                }else{
+                    backdropsData= await fetchTvBackdrops(movie.id);
+                     mediaData = await fetchTvVideos(movie.id);
+                     postersData = await fetchTvPosters(movie.id);
+                     keywordData = await fetchTvKeywords(movie.id);
+                }
 
                 setBackdrops(backdropsData);
                 setMedia(mediaData);
                 setPosters(postersData);
                 setKeyword(keywordData);
+
             } catch (error) {
                 console.error("Error fetching data: ", error);
             }
@@ -85,7 +99,7 @@ function media({ movie }) {
                     {value === 2 && <Poste movie={posters} />}
                 </div>
                 <div className="ml-4 w-1/5">
-                    <Keywords keyword={keyword}/>
+                    <Keywords keyword={keyword} type={type} />
                     </div>
             </div>
         </div>

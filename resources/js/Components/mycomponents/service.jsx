@@ -68,3 +68,48 @@ export const fetchActorImages = async (id) => {
     const response = await axios.get(`${BASE_URL}/person/${id}/images?api_key=${API_KEY}`);
     return response.data.profiles
 }
+
+export const fetchTv = async (id) => {
+    const response = await axios.get(`${BASE_URL}/tv/${id}?api_key=${API_KEY}`);
+    return response.data
+}
+
+export const fetchMovieByKeyword = async (id, page) => {
+    const response = await axios.get(`${BASE_URL}/keyword/${id}/movies?api_key=${API_KEY}&page=${page}`);
+    return response.data.results;
+}
+
+export const fetchtvcast = async (id) => {
+    const response = await axios.get(`${BASE_URL}/tv/${id}/credits?api_key=${API_KEY}`);
+    return response.data.cast
+}
+
+export const fetchTvVideos = async (id) => {
+    const response = await axios.get(`${BASE_URL}/tv/${id}/videos?api_key=${API_KEY}`);
+    return response.data.results
+}
+
+export const fetchTvBackdrops = async (id) => {
+    const response = await axios.get(`${BASE_URL}/tv/${id}/images?api_key=${API_KEY}`);
+    return response.data.backdrops
+}
+
+export const fetchTvPosters = async (id) => {
+    const response = await axios.get(`${BASE_URL}/tv/${id}/images?api_key=${API_KEY}`);
+    return response.data.posters
+}
+
+export const fetchTvRecomandations = async(id) => {
+    const response =  await axios.get(`${BASE_URL}/tv/${id}/recommendations?api_key=${API_KEY}`);
+    return response.data.results
+}
+
+export const fetchTvKeywords = async (id) => {
+    const response = await axios.get(`${BASE_URL}/tv/${id}/keywords?api_key=${API_KEY}`);
+    return response.data.results
+}
+
+export const fetchTvbykeyword = async (id, page, sort) => {
+    const response = await axios.get(`${BASE_URL}/discover/tv?api_key=${API_KEY}&with_keywords=${id}&page=${page}&sort_by=${sort}`);
+    return response.data.results;
+}

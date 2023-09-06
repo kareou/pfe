@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { fetchMovieCredits } from "./service";
+import { fetchMovieCredits,fetchtvcast } from "./service";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { Link } from "@inertiajs/react";
 
-function cast({ movie }) {
+function cast({ movie, type }) {
     const [cast, setCast] = useState([]);
 
+    if(type === "movie"){
     useEffect(() => {
         fetchMovieCredits(movie.id).then(setCast);
     }, []);
+    }else{
+        useEffect(() => {
+            fetchtvcast(movie.id).then(setCast);
+        }, []);
+    }
     return (
         <div className="grid gap-4">
             <div className="flex items-center gap-1">
