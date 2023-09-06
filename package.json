@@ -26,6 +26,8 @@
         "lodash": "^4.17.21",
         "react-circular-progressbar": "^2.1.0",
         "react-icons": "^4.10.1",
+        "react-rating": "^2.0.5",
+        "react-simple-star-rating": "^5.1.7",
         "react-slick": "^0.29.0",
         "react-youtube": "^10.1.0",
         "swiper": "^10.0.4"

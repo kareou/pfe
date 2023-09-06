@@ -7,15 +7,18 @@ import Cast from "../Components/mycomponents/cast";
 import Media from "../Components/mycomponents/media";
 import Recomandation from "../Components/mycomponents/recomandation";
 import { useState, useEffect } from "react";
-import {
-    fetchTv,
-} from "../Components/mycomponents/service";
+import { fetchTv, fetchTvSeason } from "../Components/mycomponents/service";
 import { usePage } from "@inertiajs/react";
 import Nav from "../Components/mycomponents/nav";
 import { useForm } from "@inertiajs/react";
+import { AiFillStar } from "react-icons/ai";
+import Rating from '@mui/material/Rating'
 
 function MoviePqge(props, { auth }) {
     const [movie, setMovies] = useState([]);
+    const [episodes, setepisodes] = useState([]);
+    const [season, setseason] = useState(1);
+
     const [isLoading, setIsLoading] = useState(true);
 
     const { fav, setfav, post, processing } = useForm({
@@ -27,7 +30,8 @@ function MoviePqge(props, { auth }) {
         fetchTv(id)
             .then(setMovies)
             .finally(() => setIsLoading(false));
-    }, [id]);
+        fetchTvSeason(id, season).then(setepisodes);
+    }, [id, season]);
 
     function convertRuntime(runtime) {
         const hours = Math.floor(runtime / 60);
@@ -69,8 +73,6 @@ function MoviePqge(props, { auth }) {
             }
         }, [page.props.auth.user]);
     }
-
-    console.log(movie);
     const fcolor = infav ? "#D3D6DB" : "#303841";
     const wcolor = inwatchlist ? "#D3D6DB" : "#303841";
     const wacolor = inwatched ? "#D3D6DB" : "#303841";
@@ -86,18 +88,30 @@ function MoviePqge(props, { auth }) {
     }
 
     function submit(e) {
+        if (!page.props.auth.user) return;
         e.preventDefault();
         post("/favorite");
     }
 
     function submit2(e) {
+        if (!page.props.auth.user) return;
         e.preventDefault();
         post("/watchlist");
     }
 
     function submit3(e) {
+        if (!page.props.auth.user) return;
         e.preventDefault();
         post("/watched");
+    }
+
+    const time = (min) => {
+        return Math.floor(min / 60) + "h" + (min % 60) + "min";
+    };
+
+    function submitrating(e) {
+        e.preventDefault();
+        post("/rating");
     }
 
     return (
@@ -143,11 +157,14 @@ function MoviePqge(props, { auth }) {
                                         <h3 className="flex gap-2 font-thin text-sm">
                                             <li>
                                                 <span className=" font-bold">
-                                                    first air date : </span>
-                                                 {movie.first_air_date}</li>
+                                                    first air date :{" "}
+                                                </span>
+                                                {movie.first_air_date}
+                                            </li>
                                             <li>
                                                 <span className=" font-bold">
-                                                    last air date : </span>
+                                                    last air date :{" "}
+                                                </span>
                                                 {movie.last_air_date}
                                             </li>
                                             <li>
@@ -173,26 +190,40 @@ function MoviePqge(props, { auth }) {
                                     </div>
                                     <div className="flex gap-8 text-lg">
                                         <form onSubmit={submit}>
-                                            <button className="flex justify-center items-center  rounded-full bg-my_red w-12 h-12 shadow">
+                                            <button
+                                                disabled={!page.props.auth.user}
+                                                className="flex justify-center items-center  rounded-full bg-my_red w-12 h-12 shadow"
+                                            >
                                                 <MdOutlineFavorite
                                                     style={{ color: fcolor }}
                                                 />
                                             </button>
                                         </form>
                                         <form onSubmit={submit2}>
-                                            <button className="flex justify-center items-center  rounded-full bg-my_red w-12 h-12 shadow">
+                                            <button
+                                                disabled={!page.props.auth.user}
+                                                className="flex justify-center items-center  rounded-full bg-my_red w-12 h-12 shadow"
+                                            >
                                                 <BsFillBookmarkFill
                                                     style={{ color: wcolor }}
                                                 />
                                             </button>
                                         </form>
                                         <form onSubmit={submit3}>
-                                            <button className="flex justify-center items-center  rounded-full bg-my_red w-12 h-12 shadow">
+                                            <button
+                                                disabled={!page.props.auth.user}
+                                                className="flex justify-center items-center  rounded-full bg-my_red w-12 h-12 shadow"
+                                            >
                                                 <TiThList
                                                     style={{ color: wacolor }}
                                                 />
                                             </button>
                                         </form>
+                                            <Rating precision={0.5}
+                                                onChange={(e) => console.log(e.target.value)}
+                                                emptyIcon={<AiFillStar style={{ color: "white", opacity : ".5" }} />}
+
+                                            />
                                     </div>
                                 </div>
                                 <div className="absolute rounded-full right-20 ">
@@ -218,6 +249,76 @@ function MoviePqge(props, { auth }) {
                         </div>
                         <div className="p-8 grid gap-8">
                             <Cast movie={movie} type={"tv"} />
+                            <div className="grid gap-4">
+                                <div className="flex items-center gap-1">
+                                    <div className="w-[5px] h-[40px] bg-my_red"></div>
+                                    <h1 className=" text-my_gray2 text-xl font-bold">
+                                        Seasons
+                                    </h1>
+                                    <select
+                                        name=""
+                                        id=""
+                                        onChange={(e) =>
+                                            setseason(e.target.value)
+                                        }
+                                        className="border-none rounded focus:ring-my_red ml-4 h-10"
+                                    >
+                                        {movie.seasons
+                                            .filter(
+                                                (season) =>
+                                                    season.season_number !== 0
+                                            )
+                                            .map((season) => (
+                                                <option
+                                                    key={season.id}
+                                                    value={season.season_number}
+                                                >
+                                                    S{season.season_number}
+                                                </option>
+                                            ))}
+                                    </select>
+                                </div>
+                                <div className="grid gap-4 ">
+                                    {episodes.map((episode) => (
+                                        <div
+                                            key={episode.episode_number}
+                                            className="flex gap-8 rounded text-sm shadow-lg border border-my_gray2/25"
+                                        >
+                                            <img
+                                                className="rounded-l h-32"
+                                                src={`https://image.tmdb.org/t/p/original/${episode.still_path}`}
+                                                alt=""
+                                                style={{}}
+                                                srcSet=""
+                                            />
+                                            <div className="grid">
+                                                <h1 className="text-lg font-bold">
+                                                    {episode.episode_number}{" "}
+                                                    {episode.name}
+                                                </h1>
+                                                <div className="flex gap-4">
+                                                    <div className="bg-my_gray rounded-lg px-1 gap-1 flex w-min h-min text-my_white">
+                                                        <span>
+                                                            <AiFillStar className="text-black m-1" />
+                                                        </span>
+                                                        {episode.vote_average.toFixed(
+                                                            1
+                                                        )}
+                                                    </div>
+                                                    <span>
+                                                        {episode.air_date}
+                                                    </span>
+                                                    <span className=" decoration-clone">
+                                                        {time(episode.runtime)}
+                                                    </span>
+                                                </div>
+                                                <h1>{episode.overview} </h1>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <tr className="border border-my_red/75"></tr>
                             <Media movie={movie} type={"tv"} />
                             <Recomandation movie={movie} type={"tv"} />
                         </div>

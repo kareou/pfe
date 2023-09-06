@@ -113,3 +113,8 @@ export const fetchTvbykeyword = async (id, page, sort) => {
     const response = await axios.get(`${BASE_URL}/discover/tv?api_key=${API_KEY}&with_keywords=${id}&page=${page}&sort_by=${sort}`);
     return response.data.results;
 }
+
+export const fetchTvSeason = async (id, season) => {
+    const response = await axios.get(`${BASE_URL}/tv/${id}/season/${season}?api_key=${API_KEY}`);
+    return response.data.episodes
+}
