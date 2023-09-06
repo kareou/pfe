@@ -70,6 +70,7 @@ function MoviePqge(props, { auth }) {
         }, [page.props.auth.user]);
     }
 
+    console.log(movie);
     const fcolor = infav ? "#D3D6DB" : "#303841";
     const wcolor = inwatchlist ? "#D3D6DB" : "#303841";
     const wacolor = inwatched ? "#D3D6DB" : "#303841";

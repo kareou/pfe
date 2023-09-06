@@ -209,9 +209,9 @@ function MoviePqge(props, { auth }) {
                             </div>
                         </div>
                         <div className="p-8 grid gap-8">
-                            <Cast movie={movie} />
-                            <Media movie={movie} />
-                            <Recomandation movie={movie} />
+                            <Cast movie={movie} type="movie" />
+                            <Media movie={movie} type="movie" />
+                            <Recomandation movie={movie} type="movie" />
                         </div>
                     </div>
                 </div>

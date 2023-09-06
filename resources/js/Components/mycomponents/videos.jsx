@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import { fetchMovieVideos, fetchMovieBackdrops } from "./service";
 import {AiFillPlayCircle} from "react-icons/ai";
+import YouTube from "react-youtube";
 
 
 function videos({ movie }) {
@@ -29,12 +30,16 @@ function videos({ movie }) {
                         X
                     </button>
                 <div className="w-full h-full z-10 bg-black/50 rounded-md">
-                    <iframe
-                     className="w-full h-full"
-                     src={`https://www.youtube.com/embed/${name}`}
-                     allowFullScreen
-                     ></iframe>
 
+                    <YouTube
+                        videoId={name}
+                        opts={{
+                            width: "100%",
+                            height: "500px",
+                            position: "absolute",
+                            playerVars: { autoplay: 1 },
+                        }}
+                    />
 
                          </div>
                      </div>

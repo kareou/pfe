@@ -63,7 +63,8 @@ Route::post('/watched', [ProfileController::class, 'addwatched'])->name('addwatc
 Route::get('/shows/{keyword}-{type}-{name}',function($keyword,$name,$type){
     return Inertia::render('Keywordl',[
         'keyword' => $keyword,
-        'type' => $type
+        'type' => $type,
+        'name' => $name
     ]);
 });
 

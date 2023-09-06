@@ -79,6 +79,24 @@
 
 @font-face {
     font-family: rust;
-    src: url(../../storage//app//font/IntroRustG-Base2Line.otf);
+    src: url(../../storage/app/font/IntroRustG-Base2Line.otf);
 }
 
+.rust{
+    font-family: rust;
+}
+
+.dropdown{
+    animation: drop .2s;
+}
+
+@keyframes drop {
+    0% {
+      transform: translateY(-50%);
+
+    }
+    100% {
+      transform: translateY(10%);
+      transform: translateY(0%);
+    }
+}
