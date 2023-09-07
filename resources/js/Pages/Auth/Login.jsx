@@ -40,13 +40,18 @@ export default function Login({ status, canResetPassword }) {
                     {status}
                 </div>
             )}
-            <div className=" w-[347px] h-full flex-grow-0">
+            <div className=" box-border ">
                 <video
                     autoPlay
                     loop
                     muted
-                    className=" object-cover block" // Set the desired height (e.g., h-300)
+                    className=" object-cover"
                     src={vid}
+                    style={{
+                        width: "100%",
+                        height: "100vh",
+                        objectFit: "cover",
+                    }}
                 ></video>
             </div>
             <div className="p-8 ml-24 grid gap-1 ">

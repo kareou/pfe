@@ -72,8 +72,8 @@ function media({ movie,type }) {
                 <div className="w-[5px] h-[40px] bg-my_red"></div>
                 <h1 className=" text-my_gray2 text-xl font-bold">Medias</h1>
             </div>
-            <div className="flex">
-                <div className="w-[80%]">
+            <div className="md:flex">
+                <div className="md:w-[80%] w-full">
                     <ThemeProvider theme={theme}>
                         <Tabs
                             value={value}

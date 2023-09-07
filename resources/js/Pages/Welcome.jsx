@@ -19,7 +19,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         });
     }, []);
     return (
-        <div className="pt-4">
+        <div className="pt-4 container mx-auto">
             <Head title="Welcome" />
             <Nav auth={auth} />
             <Splay />
@@ -36,7 +36,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
             {!auth.user && (
             <div
-                className="w-full h-[240px] mt-5 text-my_white flex items-center gap-16 px-8"
+                className="w-full md:h-[240px] py-2 mt-5 text-my_white md:flex items-center gap-16 px-8 grid"
                 style={{
                     background: `linear-gradient(rgba(48,56,65,0.75),rgba(48,56,65,0.75)),url(${background})`,
                     backgroundSize: "cover",

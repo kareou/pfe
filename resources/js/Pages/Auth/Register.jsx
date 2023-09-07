@@ -36,20 +36,25 @@ export default function Register() {
         <GuestLayout>
             <Head title="Register" />
 
-            <div className=" w-[347px] h-full flex-grow-0">
+            <div className=" box-border ">
                 <video
                     autoPlay
                     loop
                     muted
-                    className=" object-cover block" // Set the desired height (e.g., h-300)
+                    className=" object-cover"
                     src={vid}
+                    style={{
+                        width: "100%",
+                        height: "100vh",
+                        objectFit: "cover",
+                    }}
                 ></video>
             </div>
 
             {!show && (
                 <div className="p-8 ml-24 grid gap-1 ">
                     <h1 className=" text-2xl text-my_gray2 font-bold">
-                        Sign up to Sitednm
+                        Sign up to MovieDB
                     </h1>
                     <a
                     href={route("register.redirect")}
@@ -84,7 +89,7 @@ export default function Register() {
             {show && (
                 <div className="p-8 ml-24 grid gap-1 relative register">
                     <h1 className=" text-2xl text-my_gray2 font-extrabold mb-5">
-                        Sign up to Sitednm
+                        Sign up to MovieDB
                     </h1>
                     <button
                         className=" -top-0 -left-5 absolute border border-my_gray w-10 h-10 rounded flex justify-center place-items-center"

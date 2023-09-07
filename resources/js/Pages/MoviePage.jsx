@@ -20,7 +20,7 @@ function MoviePqge(props, { auth }) {
     const [isLoading, setIsLoading] = useState(true);
 
     const { fav, setfav, post, processing } = useForm({
-        movie_id: props.movie + ":m",
+        movie_id: props.movie,
     });
 
     const id = props.movie;
@@ -46,30 +46,28 @@ function MoviePqge(props, { auth }) {
 
     const page = usePage();
 
-    if (page.props.auth.user) {
-        useEffect(() => {
-            if (
-                page.props.auth.user.favorite &&
-                page.props.auth.user.favorite.includes(props.movie)
-            ) {
-                setinfav(true);
-            }
+    useEffect(() => {
+        if (
+            page.props.auth.user &&
+            page.props.auth.user.favorite.includes(props.movie)
+        ) {
+            setinfav(true);
+        }
 
-            if (
-                page.props.auth.user.watchlist &&
-                page.props.auth.user.watchlist.includes(props.movie)
-            ) {
-                setinwatchlist(true);
-            }
+        if (
+            page.props.auth.user &&
+            page.props.auth.user.watchlist.includes(props.movie)
+        ) {
+            setinwatchlist(true);
+        }
 
-            if (
-                page.props.auth.user.watched &&
-                page.props.auth.user.watched.includes(props.movie)
-            ) {
-                setinwatched(true);
-            }
-        }, [page.props.auth.user]);
-    }
+        if (
+            page.props.auth.user &&
+            page.props.auth.user.watched.includes(props.movie)
+        ) {
+            setinwatched(true);
+        }
+    }, [page.props.auth.user]);
 
     const fcolor = infav ? "#D3D6DB" : "#303841";
     const wcolor = inwatchlist ? "#D3D6DB" : "#303841";
@@ -103,11 +101,11 @@ function MoviePqge(props, { auth }) {
     return (
         <>
             {!isLoading && (
-                <div className="pt-4">
+                <div className="pt-4 z-0">
                     <Nav auth={page.props.auth} />
                     <div className=" mt-10">
                         <div
-                            className=" w-full h-[510px] p-8  text-my_white "
+                            className=" w-full h-max p-8  text-my_white "
                             style={{
                                 backgroundImage: `linear-gradient(to top,rgba(48, 56, 65, 0.75) 10% ,rgba(48, 56, 65, 0.75) ), url(${getBackdrop(
                                     movie.backdrop_path
@@ -115,9 +113,9 @@ function MoviePqge(props, { auth }) {
                                 backgroundSize: "cover",
                             }}
                         >
-                            <div className="flex gap-8">
+                            <div className="md:flex gap-8 grid">
                                 <div
-                                    className="h-full"
+                                    className="h-full "
                                     style={{
                                         boxSizing: "border-box",
                                         display: "block",
@@ -127,20 +125,38 @@ function MoviePqge(props, { auth }) {
                                     }}
                                 >
                                     <img
-                                        className="rounded"
+                                        className="rounded drop-shadow-lg mx-6"
                                         src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                                         alt=""
                                         style={{}}
                                         srcSet=""
                                     />
                                 </div>
-
-                                <div className="pt-8 grid relative">
+                                <div className="absolute rounded-full md:right-20 right-28  ">
+                                    <h1 className=" absolute m-3 font-bold text-white text-md">
+                                        {Math.round(movie.vote_average * 10)}
+                                    </h1>
+                                    <CircularProgress
+                                        variant="determinate"
+                                        value={Math.round(
+                                            movie.vote_average * 10
+                                        )}
+                                        size={45}
+                                        sx={{
+                                            color: changeColor(
+                                                Math.round(
+                                                    movie.vote_average * 10
+                                                )
+                                            ),
+                                        }}
+                                    />
+                                </div>
+                                <div className="pt-8 grid gap-4 relative">
                                     <div>
                                         <h1 className="font-bold text-2xl">
                                             {movie.title}
                                         </h1>
-                                        <h3 className="flex gap-2 font-thin text-sm">
+                                        <h3 className="md:flex gap-2 font-thin text-sm">
                                             <li>{movie.release_date}</li>
                                             <li>
                                                 {convertRuntime(movie.runtime)}
@@ -187,28 +203,9 @@ function MoviePqge(props, { auth }) {
                                         </form>
                                     </div>
                                 </div>
-                                <div className="absolute rounded-full right-20 ">
-                                    <h1 className=" absolute m-3 font-bold text-white text-md">
-                                        {Math.round(movie.vote_average * 10)}
-                                    </h1>
-                                    <CircularProgress
-                                        variant="determinate"
-                                        value={Math.round(
-                                            movie.vote_average * 10
-                                        )}
-                                        size={45}
-                                        sx={{
-                                            color: changeColor(
-                                                Math.round(
-                                                    movie.vote_average * 10
-                                                )
-                                            ),
-                                        }}
-                                    />
-                                </div>
                             </div>
                         </div>
-                        <div className="p-8 grid gap-8">
+                        <div className="md:p-8 p-4 grid gap-8">
                             <Cast movie={movie} type="movie" />
                             <Media movie={movie} type="movie" />
                             <Recomandation movie={movie} type="movie" />

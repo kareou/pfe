@@ -63,7 +63,6 @@ function main_display() {
     const sideretag = async (id) => {
         let tag;
         tag = await gettags(id);
-        console.log(tag);
         return tag.tagline;
     };
 
@@ -92,12 +91,15 @@ function main_display() {
                 console.error("Error fetching video ID:", error);
             }
         };
-        fetchVideoId();
+        fetchVideoId(
+
+        );
     }, [all[i]?.id]);
 
+
     return (
-        <div className="flex gap-8 mt-10 mx-4">
-            <div className="vid w-[850px] h-[548px] relative drop-shadow-lg">
+        <div className="md:flex gap-8 mt-10 container">
+            <div className="vid md:w-[850px] md:h-[548px] h-[300px] w-screen relative drop-shadow-lg">
                 {play && (
                     <>
                         {!ready && (
@@ -115,8 +117,8 @@ function main_display() {
                         <YouTube
                             videoId={videoId}
                             opts={{
-                                width: "850",
-                                height: "548",
+                                width: "100%", // Set the width to 100% to make it responsive
+                                height: "100%",
                                 position: "absolute",
                                 playerVars: { autoplay: 1 },
                             }}
@@ -138,7 +140,7 @@ function main_display() {
                 {!play && (
                     <>
                         <div
-                            className="rounded w-[850px] h-[548px] absolute"
+                            className="rounded w-full h-full absolute"
                             style={{
                                 backgroundImage: `linear-gradient(to top,rgba(0, 0, 0, 1) 10% ,rgba(48, 56, 65, 0.3) ), url(${getBackdrop(
                                     all[i]?.backdrop_path
@@ -148,7 +150,7 @@ function main_display() {
                         ></div>
 
                         <img
-                            className="p-[20px 12px] absolute left-5 h-16 top-52 cursor-pointer"
+                            className="p-[20px 12px] absolute left-5 md:h-16 h-10 top-20 md:top-56 cursor-pointer"
                             onClick={() =>
                                 setI(
                                     (prevI) =>
@@ -159,62 +161,69 @@ function main_display() {
                             alt=""
                         />
                         <img
-                            className="p-[20px 12px] absolute right-5 h-16 top-52 cursor-pointer"
+                            className="p-[20px 12px] absolute right-5 md:h-16 h-10 top-20 md:top-56 cursor-pointer"
                             onClick={() =>
                                 setI((prevI) => (prevI + 1) % all.length)
                             }
                             src={prev}
                             alt=""
                         />
-                        <div className="absolute mx-12 bottom-5 flex gap-4 z-40">
-                            <Link
-                                href={`/MoviePage/${all[i]?.id}`}
-                            >
+                        <div className="absolute md:mx-12 mx-2 bottom-5 flex gap-4 z-40">
+                            <Link href={`/MoviePage/${all[i]?.id}`}>
                                 <img
-                                    className=" w-[165px] h-[244px] shadow rounded"
+                                    className=" md:w-[165px]  md:h-[244px] h-[160px] shadow rounded"
                                     src={getBg(all[i]?.poster_path)}
                                     alt=""
                                 />
                             </Link>
                             <div className=" text-my_white font-bold">
-                                <h1 className=" text-2xl">{all[i]?.title}</h1>
-                                <h2 className=" text-xl">{tags}</h2>
+                                <h1 className=" md:text-2xl text-lg">{all[i]?.title}</h1>
+                                <h2 className=" text-sm font-thin block md:hidden">
+                                    {tags && tags.length > 30 ? tags.slice(0, 30) + "..." : tags}
+                                </h2>
+                                <h2 className=" text-sm font-thin hidden md:block">
+                                    {tags}
+                                </h2>
                             </div>
                         </div>
-                        <div className="bottom-5 right-5 absolute flex gap-2">
-                            <h1 className="text-2xl text-my_white font-bold">
+                        <div className="bottom-2 md:right-5 right-2 absolute flex items-center gap-2">
+                            <h1 className="md:text-2xl text-sm text-my_white font-bold">
                                 Play Trailer
                             </h1>
                             <AiOutlinePlayCircle
-                                className="w-[100px] h-[100px]  text-my_white/20 shadow cursor-pointer "
+                                className="md:w-[100px] w-16 h-[100px]  text-my_white/20 shadow cursor-pointer "
                                 onClick={() => setPlay(true)}
                             />
                         </div>
                     </>
                 )}
             </div>
-            <div className="wait grid drop-shadow-lg">
+            <div className="wait  drop-shadow-lg hidden  md:block">
                 <h5 className="font-bold text-xl text-my_gray2 underline">
                     Next
                 </h5>
                 <div className="h-[510px] w-[400px] bg-my_gray rounded p-4 grid gap-4">
-                    {all && all.slice(i + 1, 3 + i + 1).map((al, i) => (
-                        <div key={i} className="flex gap-2 h-[130px] w-[80]">
-                            <Link
-                                href={`/MoviePage/${al.id}`}
+                    {all &&
+                        all.slice(i + 1, 3 + i + 1).map((al, i) => (
+                            <div
+                                key={i}
+                                className="flex gap-2 h-[130px] w-[80]"
                             >
-                            <img
-                                className="h-full rounded shadow-md"
-                                src={getBg(al.poster_path)}
-                                alt=""
-                            />
-                            </Link>
-                            <div className=" text-my_white font-bold">
-                                <h1 className=" text-lg">{al.title}</h1>
-                                <h2 className=" text-sm font-thin">{al.release_date}</h2>
+                                <Link href={`/MoviePage/${al.id}`}>
+                                    <img
+                                        className="h-full rounded shadow-md"
+                                        src={getBg(al.poster_path)}
+                                        alt=""
+                                    />
+                                </Link>
+                                <div className=" text-my_white font-bold">
+                                    <h1 className=" text-lg">{al.title}</h1>
+                                    <h2 className=" text-sm font-thin">
+                                        {al.release_date}
+                                    </h2>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
                 </div>
             </div>
         </div>

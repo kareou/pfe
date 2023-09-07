@@ -117,11 +117,11 @@ function MoviePqge(props, { auth }) {
     return (
         <>
             {!isLoading && (
-                <div className="pt-4">
+                <div className="pt-4  z-0">
                     <Nav auth={page.props.auth} />
                     <div className=" mt-10">
                         <div
-                            className=" w-full h-[510px] p-8  text-my_white "
+                            className=" w-full h-max p-8  text-my_white "
                             style={{
                                 backgroundImage: `linear-gradient(to top,rgba(48, 56, 65, 0.75) 10% ,rgba(48, 56, 65, 0.75) ), url(${getBackdrop(
                                     movie.backdrop_path
@@ -129,7 +129,7 @@ function MoviePqge(props, { auth }) {
                                 backgroundSize: "cover",
                             }}
                         >
-                            <div className="flex gap-8">
+                            <div className="md:flex gap-8 grid">
                                 <div
                                     className="h-full"
                                     style={{
@@ -141,20 +141,38 @@ function MoviePqge(props, { auth }) {
                                     }}
                                 >
                                     <img
-                                        className="rounded"
+                                        className="rounded drop-shadow-lg mx-6"
                                         src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                                         alt=""
                                         style={{}}
                                         srcSet=""
                                     />
                                 </div>
-
-                                <div className="pt-8 grid relative">
+                                <div className="absolute rounded-full md:right-20 right-28  ">
+                                    <h1 className=" absolute m-3 font-bold text-white text-md">
+                                        {Math.round(movie.vote_average * 10)}
+                                    </h1>
+                                    <CircularProgress
+                                        variant="determinate"
+                                        value={Math.round(
+                                            movie.vote_average * 10
+                                        )}
+                                        size={45}
+                                        sx={{
+                                            color: changeColor(
+                                                Math.round(
+                                                    movie.vote_average * 10
+                                                )
+                                            ),
+                                        }}
+                                    />
+                                </div>
+                                <div className="pt-8 grid gap-4 relative">
                                     <div>
                                         <h1 className="font-bold text-2xl">
                                             {movie.name}
                                         </h1>
-                                        <h3 className="flex gap-2 font-thin text-sm">
+                                        <h3 className="md:flex gap-2 font-thin text-sm">
                                             <li>
                                                 <span className=" font-bold">
                                                     first air date :{" "}
@@ -226,28 +244,10 @@ function MoviePqge(props, { auth }) {
                                             />
                                     </div>
                                 </div>
-                                <div className="absolute rounded-full right-20 ">
-                                    <h1 className=" absolute m-3 font-bold text-white text-md">
-                                        {Math.round(movie.vote_average * 10)}
-                                    </h1>
-                                    <CircularProgress
-                                        variant="determinate"
-                                        value={Math.round(
-                                            movie.vote_average * 10
-                                        )}
-                                        size={45}
-                                        sx={{
-                                            color: changeColor(
-                                                Math.round(
-                                                    movie.vote_average * 10
-                                                )
-                                            ),
-                                        }}
-                                    />
-                                </div>
+
                             </div>
                         </div>
-                        <div className="p-8 grid gap-8">
+                        <div className="md:p-8 p-4 grid gap-8">
                             <Cast movie={movie} type={"tv"} />
                             <div className="grid gap-4">
                                 <div className="flex items-center gap-1">
@@ -278,41 +278,41 @@ function MoviePqge(props, { auth }) {
                                             ))}
                                     </select>
                                 </div>
-                                <div className="grid gap-4 ">
+                                <div className="grid gap-4 w-full">
                                     {episodes.map((episode) => (
                                         <div
                                             key={episode.episode_number}
-                                            className="flex gap-8 rounded text-sm shadow-lg border border-my_gray2/25"
+                                            className="md:flex grid  gap-8 rounded w-full text-sm shadow-lg border border-my_gray2/25"
                                         >
                                             <img
-                                                className="rounded-l h-32"
+                                                className="md:rounded-l md:h-32 md:w-max w-full h-max rounded-t"
                                                 src={`https://image.tmdb.org/t/p/original/${episode.still_path}`}
                                                 alt=""
                                                 style={{}}
                                                 srcSet=""
                                             />
-                                            <div className="grid">
-                                                <h1 className="text-lg font-bold">
+                                            <div className="grid md:gap-0 gap-4 md:p-0 p-4">
+                                                <h1 className="text-2xl py-2 font-bold">
                                                     {episode.episode_number}{" "}
                                                     {episode.name}
                                                 </h1>
                                                 <div className="flex gap-4">
-                                                    <div className="bg-my_gray rounded-lg px-1 gap-1 flex w-min h-min text-my_white">
+                                                    <div className="bg-my_gray rounded-lg text-lg px-1 gap-1 flex w-min h-min text-my_white">
                                                         <span>
-                                                            <AiFillStar className="text-black m-1" />
+                                                            <AiFillStar className="text-my_red m-1" />
                                                         </span>
                                                         {episode.vote_average.toFixed(
                                                             1
                                                         )}
                                                     </div>
-                                                    <span>
+                                                    <span className=" text-base">
                                                         {episode.air_date}
                                                     </span>
-                                                    <span className=" decoration-clone">
+                                                    <span className=" decoration-clone text-base">
                                                         {time(episode.runtime)}
                                                     </span>
                                                 </div>
-                                                <h1>{episode.overview} </h1>
+                                                <h1 className=" font-semibold text-xl">{episode.overview} </h1>
                                             </div>
                                         </div>
                                     ))}

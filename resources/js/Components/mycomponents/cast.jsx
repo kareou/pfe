@@ -21,11 +21,11 @@ function cast({ movie, type }) {
                 <div className="w-[5px] h-[40px] bg-my_red"></div>
                 <h1 className=" text-my_gray2 text-xl font-bold">Top Cast</h1>
             </div>
-            <div className="flex gap-4  border-b border-b-my_red pb-5">
+            <div className="flex gap-4 flex-wrap  border-b border-b-my_red pb-5">
                 {cast.slice(0, 8).map((actor) => (
                     <div
                         key={actor.id}
-                        className="flex flex-col bg-white rounded-md shadow-md w-[130px] "
+                        className="flex flex-col bg-white rounded-md shadow-md w-36 "
                     >
                         <Link
                             href={`/actor/${actor.id}`}
@@ -33,7 +33,7 @@ function cast({ movie, type }) {
                         <img
                             src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
                             alt=""
-                            className="w-[130px] h-[170px] rounded-tl-md rounded-tr-md  "
+                            className="w-full h-44 rounded-tl-md rounded-tr-md  "
                         />
                         </Link>
                         <div className=" text-start p-2">
@@ -46,12 +46,6 @@ function cast({ movie, type }) {
                         </div>
                     </div>
                 ))}
-                <h1 className="">
-                    <button className="underline flex items-center">
-                        See All
-                        <BiRightArrowAlt />
-                    </button>
-                </h1>
             </div>
         </div>
     );
