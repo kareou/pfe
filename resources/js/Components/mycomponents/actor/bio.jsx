@@ -8,7 +8,6 @@ import { BsFacebook, BsTwitter, BsInstagram } from "react-icons/bs";
 function bio({ knownFor, actor, sorted, social }) {
     const [topten, setTopten] = useState([]);
 
-    console.log(social);
 
     useEffect(() => {
         const filter = knownFor.sort((a, b) => b.popularity - a.popularity);
@@ -17,15 +16,18 @@ function bio({ knownFor, actor, sorted, social }) {
         setTopten(sliced.sort((a, b) => b.vote_average - a.vote_average));
     }, [knownFor]);
 
+    console.log(sorted);
+
     const image = `https://image.tmdb.org/t/p/w500/${actor.profile_path}`;
     return (
-        <div className="flex flex-row nowrap items-start content-start box-border overflow-hidden">
-            <div className="w-[40%]">
+        <div className="md:flex md:flex-nowrap grid box-border gap-8">
+            <div className=" grid h-max">
                 <img
-                    className=" w-[300px] h-[450px] rounded-md drop-shadow-md"
+                    className="w-full h-max rounded-md drop-shadow-md"
                     src={image}
                     alt=""
                 />
+
                 <div className=" flex gap-4 mt-5">
                     {social.facebook_id && (
                         <a
@@ -52,7 +54,7 @@ function bio({ knownFor, actor, sorted, social }) {
                         </a>
                     )}
                 </div>
-                <div className=" mt-5">
+                <div className=" mt-5 inde md:block hidden">
                     <div className="flex items-center gap-1">
                         <div className="w-[5px] h-[40px] bg-my_red"></div>
                         <h1 className=" text-my_gray2 text-xl font-bold">
@@ -90,18 +92,21 @@ function bio({ knownFor, actor, sorted, social }) {
                     </div>
                 </div>
             </div>
-            <div className=" w-full grid gap-2">
+            <div className=" w-full h-max grid gap-2 ">
                 <h1 className=" text-2xl font-extrabold">{actor.name}</h1>
                 <h2 className=" text-xl font-semibold">Biographie</h2>
                 {actor.biography &&
                     actor.biography.split("\n").map((paragraph, index) => (
-                        <p key={index} className="text-justify text-base">
+                        <p
+                            key={index}
+                            className="text-justify text-base lg:text-lg truncate-2-lines"
+                        >
                             {paragraph}
                         </p>
                     ))}
                 <div className=" box-border grid gap-1">
                     <h2 className=" text-xl font-semibold">Known for</h2>
-                    <div className="scroll-container gap-2">
+                    <div className=" gap-2 scroll-container">
                         {topten.map((movie) => (
                             <Knowcard
                                 movie={movie}

@@ -37,11 +37,11 @@ function actor(props) {
         });
     }, [actor]);
 
-    console.log(images);
+    console.log(knownFor);
     return (
-        <div className="py-4">
+        <div className="py-4 container mx-auto">
             <Nav auth={page.props.auth} />
-            <div className="px-8 text-my_gray2 mt-10">
+            <div className="mx-8 text-my_gray2 mt-10">
                 {!loading && (
                     <>
                         <Bio

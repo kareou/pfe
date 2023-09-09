@@ -12,7 +12,7 @@ import { usePage } from "@inertiajs/react";
 import Nav from "../Components/mycomponents/nav";
 import { useForm } from "@inertiajs/react";
 import { AiFillStar } from "react-icons/ai";
-import Rating from '@mui/material/Rating'
+import Rating from "@mui/material/Rating";
 
 function MoviePqge(props, { auth }) {
     const [movie, setMovies] = useState([]);
@@ -117,11 +117,11 @@ function MoviePqge(props, { auth }) {
     return (
         <>
             {!isLoading && (
-                <div className="pt-4  z-0">
+                <div className="pt-4 z-0 container mx-auto">
                     <Nav auth={page.props.auth} />
                     <div className=" mt-10">
                         <div
-                            className=" w-full h-max p-8  text-my_white "
+                            className=" w-full h-max p-8  text-my_white relative"
                             style={{
                                 backgroundImage: `linear-gradient(to top,rgba(48, 56, 65, 0.75) 10% ,rgba(48, 56, 65, 0.75) ), url(${getBackdrop(
                                     movie.backdrop_path
@@ -129,7 +129,7 @@ function MoviePqge(props, { auth }) {
                                 backgroundSize: "cover",
                             }}
                         >
-                            <div className="md:flex gap-8 grid">
+                            <div className="md:flex gap-20 grid">
                                 <div
                                     className="h-full"
                                     style={{
@@ -237,14 +237,9 @@ function MoviePqge(props, { auth }) {
                                                 />
                                             </button>
                                         </form>
-                                            <Rating precision={0.5}
-                                                onChange={(e) => console.log(e.target.value)}
-                                                emptyIcon={<AiFillStar style={{ color: "white", opacity : ".5" }} />}
-
-                                            />
+                                        
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <div className="md:p-8 p-4 grid gap-8">
@@ -312,7 +307,9 @@ function MoviePqge(props, { auth }) {
                                                         {time(episode.runtime)}
                                                     </span>
                                                 </div>
-                                                <h1 className=" font-semibold text-xl">{episode.overview} </h1>
+                                                <h1 className=" font-semibold text-xl">
+                                                    {episode.overview}{" "}
+                                                </h1>
                                             </div>
                                         </div>
                                     ))}

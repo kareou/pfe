@@ -28,7 +28,7 @@ function recomandation({ movie, type }) {
                     Recomandation
                 </h1>
             </div>
-            <div className="grid md:grid-flow-col grid-flow-row md:justify-items-start justify-items-center md:gap-0 gap-4 md:scroll-container h-[300px]">
+            <div className="flex flex-wrap gap-4 justify-center h-[300px]">
                 {recomandation.slice(start, 7 + start).map((recomand) => (
                     <div
                         key={recomand.id}
@@ -49,7 +49,7 @@ function recomandation({ movie, type }) {
                                 className="hover:underline"
                             >
                                 <h1 className="text-my_gray2 font-bold truncate text-lg">
-                                    {recomand.name}
+                                    {type === "movie" ? recomand.title : recomand.name}
                                 </h1>
                             </Link>
                             <p className="text-my_gray2  mt-2">

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { usePage } from "@inertiajs/react";
 import Favorite from "@/Components/mycomponents/user/favorite";
+import {BsFillGearFill} from "react-icons/bs";
+import Nav from "@/Components/mycomponents/Nav";
 
 function Profile() {
     const { auth } = usePage().props;
@@ -24,26 +26,29 @@ function Profile() {
     const [index, setindex] = useState(0);
 
     return (
-        <div className="py-8 px-16 text-my_gray2">
-            <h1>Profile</h1>
-            <h1>About You</h1>
-            <div className="flex justify-between p-4">
-                <div className="flex gap-4">
+        <div className="pt-4 z-0 container mx-auto bg-my_white">
+            <Nav auth={auth} />
+            <div className="z-0 mt-10">
+
+            <div className="grid justify-items-center  p-4 bg-my_gray2 text-my_white ">
+                <div className="grid gap-4">
                     <div>
-                        <img src={imqge} alt="" className="rounded-full" />
+                        <img src={imqge} alt="" className="w-full h-max rounded-lg drop-shadow-lg" />
                     </div>
-                    <div>
-                        <p className="ml-4">
-                            <span className=" text-xl font-bold">
+                    <div className="flex flex-col gap-2">
+                        <p className=" text-lg">
+                            <span className=" font-bold text-xl">
                                 {auth.user.name}{" "}
                             </span>
                             member since {memeberSince[0]}
                         </p>
-                        <p className="ml-4">Total ratting : Total visits :</p>
+                        <p className=" text-lg">Total ratting : Total visits :</p>
                     </div>
                 </div>
-                <div className="flex justify-center">
-                    <button className="bg-my_gray rounded text-my_white px-2 h-10 drop-shadow-md">update Profile</button>
+                <div className="grid justify-items-end w-full">
+                    <button className="text-my_white px-2 h-10 drop-shadow-md">
+                        <BsFillGearFill className="text-3xl" />
+                    </button>
                 </div>
             </div>
             <div className="flex items-center gap-1 mt-5 px-4">
@@ -73,6 +78,8 @@ function Profile() {
             {index === 0 && <Favorite movies={auth.user.favorite} />}
             {index === 1 && <Favorite movies={auth.user.watchlist} />}
             {index === 2 && <Favorite movies={auth.user.watched} />}
+            </div>
+
         </div>
     );
 }

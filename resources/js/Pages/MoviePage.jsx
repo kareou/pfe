@@ -20,7 +20,7 @@ function MoviePqge(props, { auth }) {
     const [isLoading, setIsLoading] = useState(true);
 
     const { fav, setfav, post, processing } = useForm({
-        movie_id: props.movie,
+        movie_id: props.movie + ":" + "movie",
     });
 
     const id = props.movie;
@@ -49,6 +49,7 @@ function MoviePqge(props, { auth }) {
     useEffect(() => {
         if (
             page.props.auth.user &&
+            page.props.auth.user.favorite &&
             page.props.auth.user.favorite.includes(props.movie)
         ) {
             setinfav(true);
@@ -56,6 +57,7 @@ function MoviePqge(props, { auth }) {
 
         if (
             page.props.auth.user &&
+            page.props.auth.user.watchlist &&
             page.props.auth.user.watchlist.includes(props.movie)
         ) {
             setinwatchlist(true);
@@ -63,6 +65,7 @@ function MoviePqge(props, { auth }) {
 
         if (
             page.props.auth.user &&
+            page.props.auth.user.watched &&
             page.props.auth.user.watched.includes(props.movie)
         ) {
             setinwatched(true);
@@ -101,11 +104,11 @@ function MoviePqge(props, { auth }) {
     return (
         <>
             {!isLoading && (
-                <div className="pt-4 z-0">
+                <div className="pt-4 z-0 container mx-auto">
                     <Nav auth={page.props.auth} />
                     <div className=" mt-10">
                         <div
-                            className=" w-full h-max p-8  text-my_white "
+                            className=" w-full h-max p-8  text-my_white relative"
                             style={{
                                 backgroundImage: `linear-gradient(to top,rgba(48, 56, 65, 0.75) 10% ,rgba(48, 56, 65, 0.75) ), url(${getBackdrop(
                                     movie.backdrop_path
@@ -113,7 +116,7 @@ function MoviePqge(props, { auth }) {
                                 backgroundSize: "cover",
                             }}
                         >
-                            <div className="md:flex gap-8 grid">
+                            <div className="md:flex gap-20 grid">
                                 <div
                                     className="h-full "
                                     style={{
@@ -205,7 +208,7 @@ function MoviePqge(props, { auth }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="md:p-8 p-4 grid gap-8">
+                        <div className=" grid gap-8 mt-10">
                             <Cast movie={movie} type="movie" />
                             <Media movie={movie} type="movie" />
                             <Recomandation movie={movie} type="movie" />
