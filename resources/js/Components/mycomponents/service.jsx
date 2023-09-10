@@ -15,7 +15,6 @@ export const fetchMovies = async (type = 'trending/movie/day',search) => {
 
 export const fetchMovieDetails = async (id) => {
   const response = await axios.get(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
-//   console.log(response.data);
   return response.data;
 };
 
@@ -117,4 +116,9 @@ export const fetchTvbykeyword = async (id, page, sort) => {
 export const fetchTvSeason = async (id, season) => {
     const response = await axios.get(`${BASE_URL}/tv/${id}/season/${season}?api_key=${API_KEY}`);
     return response.data.episodes
+}
+
+export const fetchmomovieseqrch = async (id, page) => {
+    const response = await axios.get(`${BASE_URL}/search/multi?api_key=${API_KEY}&query=${id}&page=${page}`);
+    return response.data.results;
 }

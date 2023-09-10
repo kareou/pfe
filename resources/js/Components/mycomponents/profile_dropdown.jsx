@@ -5,10 +5,7 @@ function profile_dropdown({user}) {
 
     if (user) {
         if (user.image === null) {
-            var image =
-                "https://ui-avatars.com/api/?name=" +
-                user.name +
-                "background=random";
+            var image = "https://ui-avatars.com/api/?name=" + user.name + "&background=random";
         } else {
             if (user.image.includes("https://")) {
                 var image = user.image;

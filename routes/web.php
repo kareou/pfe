@@ -74,4 +74,16 @@ Route::get('/actor/{actor}',function($actor){
     ]);
 })->name('actors');
 
+Route::get('/search/{keyword}',function($keyword){
+    return Inertia::render('Search',[
+        'keyword' => $keyword
+    ]);
+})->name('search');
+
+Route::get('/edit',function(){
+    return Inertia::render('Profile/Update');
+})->name('edit');
+
+Route::post('/update', [ProfileController::class, 'updateimg'])->name('updateimg');
+
 require __DIR__.'/auth.php';

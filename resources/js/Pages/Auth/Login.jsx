@@ -18,7 +18,6 @@ export default function Login({ status, canResetPassword }) {
 
     const errcheck = usePage().props;
 
-    console.log(errcheck);
 
     useEffect(() => {
         return () => {

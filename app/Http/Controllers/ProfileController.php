@@ -137,4 +137,20 @@ class ProfileController extends Controller
         $user->watched = $watched;
         $user->save();
     }
+
+    public function updateimg(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
+        ]);
+        $user = $request->user();
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public');
+        } else {
+            $imagePath = null;
+        }
+        $user->image = $imagePath;
+        $user->save();
+        return Redirect::back();
+    }
 }

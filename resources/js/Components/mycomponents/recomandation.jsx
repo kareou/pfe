@@ -16,8 +16,6 @@ function recomandation({ movie, type }) {
             fetchTvRecomandations(movie.id).then(setRecomandation);
         }, [movie.id]);
     }
-
-    console.log(recomandation);
     const start = Math.random() * 10;
 
     return (

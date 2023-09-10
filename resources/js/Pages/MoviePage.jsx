@@ -14,6 +14,7 @@ import {
 import { usePage } from "@inertiajs/react";
 import Nav from "../Components/mycomponents/nav";
 import { useForm } from "@inertiajs/react";
+import Rating from '@mui/material/Rating';
 
 function MoviePqge(props, { auth }) {
     const [movie, setMovies] = useState([]);
@@ -100,6 +101,7 @@ function MoviePqge(props, { auth }) {
         e.preventDefault();
         post("/watched");
     }
+
 
     return (
         <>

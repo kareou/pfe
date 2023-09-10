@@ -16,8 +16,6 @@ function bio({ knownFor, actor, sorted, social }) {
         setTopten(sliced.sort((a, b) => b.vote_average - a.vote_average));
     }, [knownFor]);
 
-    console.log(sorted);
-
     const image = `https://image.tmdb.org/t/p/w500/${actor.profile_path}`;
     return (
         <div className="md:flex md:flex-nowrap grid box-border gap-8">

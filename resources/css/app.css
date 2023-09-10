@@ -79,7 +79,7 @@
 
 @font-face {
     font-family: rust;
-    src: url(../../storage/app/font/IntroRustG-Base2Line.otf);
+    src: url(../../public/font/IntroRustG-Base2Line.otf);
 }
 
 .rust{
@@ -98,5 +98,20 @@
     100% {
       transform: translateY(10%);
       transform: translateY(0%);
+    }
+}
+
+.upload{
+    animation: slide .5s;
+}
+
+@keyframes slide{
+    0% {
+      transform: translateX(10%);
+
+    }
+    100% {
+      transform: translateX(-50%);
+      transform: translateX(0%);
     }
 }

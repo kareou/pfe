@@ -37,7 +37,6 @@ function actor(props) {
         });
     }, [actor]);
 
-    console.log(knownFor);
     return (
         <div className="py-4 container mx-auto">
             <Nav auth={page.props.auth} />

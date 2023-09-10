@@ -22,7 +22,7 @@ class SocialiteController extends Controller
         $finduser = User::where('email', $user->email)->first();
         if ($finduser) {
             Auth::login($finduser);
-            return redirect('/dashboard');
+            return redirect('/');
         }
         else {
             return redirect()->route('login')->withErrors([
@@ -61,7 +61,7 @@ class SocialiteController extends Controller
 
             Auth::login($user);
 
-            return redirect('/dashboard');
+            return redirect('/');
         }
         catch (\Exception $e) {
             return redirect()->route('login')->with('email', 'Email already exists');

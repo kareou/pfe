@@ -6,9 +6,6 @@ import { Head } from "@inertiajs/react";
 import { split } from "postcss/lib/list";
 
 export default function Edit({ auth, mustVerifyEmail, status }) {
-    console.log(auth.user);
-
-    console.log(imqge);
     return (
         <AuthenticatedLayout
             user={auth.user}

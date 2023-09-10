@@ -7,14 +7,9 @@ import { BiUser } from "react-icons/bi";
 function nav({ auth }) {
     const [toggle, setToggle] = React.useState(false);
 
-    console.log(auth.user);
-
     if (auth.user) {
         if (auth.user.image === null) {
-            var image =
-                "https://ui-avatars.com/api/?name=" +
-                auth.user.name +
-                "background=random";
+            var image = "https://ui-avatars.com/api/?name=" + auth.user.name + "&background=random";
         } else {
             if (auth.user.image.includes("https://")) {
                 var image = auth.user.image;
@@ -24,6 +19,7 @@ function nav({ auth }) {
             }
         }
     }
+    const [searchTerm, setSearchTerm] = React.useState("");
 
     return (
         <>
@@ -40,18 +36,23 @@ function nav({ auth }) {
                         <div className="flex shadow-md text-center border rounded-md px-2 border-my_gray">
                             <form
                                 onSubmit={(e) => {
-                                    e.preventDefault(); // Prevent the default form submission behavior
-                                    console.log("search");
+                                    e.preventDefault();
+                                    route("search", { keyword: searchTerm });
                                 }}
+                                className="flex"
                             >
                                 <input
                                     className="search h-7 bg-my_white w-60 border-none focus:outline-none focus:ring-0"
                                     type="search"
                                     placeholder="Find a movie"
+                                    onChange={(e) => setSearchTerm(e.target.value)}
                                 />
+                            <Link
+                            href={route("search", { keyword: searchTerm })}
+                            type="submit">
+                                <CiSearch className="text-my_gray2 text-lg text-center h-7" />
+                            </Link>
                             </form>
-
-                            <CiSearch className="text-my_gray2 text-lg text-center h-7" />
                         </div>
                         <button className="">☰ Menu</button>
                     </div>
@@ -98,18 +99,16 @@ function nav({ auth }) {
                             className="flex"
                         >
                             <input
+                                onChange={(e) => setSearchTerm(e.target.value)}
                                 className="search h-7 bg-my_white w-60 border-none focus:outline-none focus:ring-0"
                                 type="search"
                                 placeholder="Find a movie"
                             />
-                            <button
-                                onclick={(e) => {
-                                    e.preventDefault();
-                                    console.log(e.target.value);
-                                }}
-                            >
+                            <Link
+                            href={route("search", { keyword: searchTerm })}
+                            type="submit">
                                 <CiSearch className="text-my_gray2 text-lg text-center h-7" />
-                            </button>
+                            </Link>
                         </form>
                     </div>
 
@@ -118,7 +117,6 @@ function nav({ auth }) {
                             <div
                                 onClick={() => {
                                     setToggle(!toggle);
-                                    console.log(toggle);
                                     document.body.style.overflow = "auto";
                                 }}
                                 className="absolute top-0 w-[100%] h-[100%] bg-slate-700/75 z-10"
@@ -132,9 +130,7 @@ function nav({ auth }) {
                                         </p>
                                     </div>
                                 ) : (
-                                    <Link
-                                        href={route("profile.edit")}
-                                    >
+                                    <Link href={route("profile.edit")}>
                                         <img
                                             src={image}
                                             alt=""
@@ -187,7 +183,7 @@ function nav({ auth }) {
                                                 </Link>
                                             </li>
                                         </>
-                                    ):(
+                                    ) : (
                                         <>
                                             <li className="border-b border-my_gray p-2 bg-my_white">
                                                 <Link

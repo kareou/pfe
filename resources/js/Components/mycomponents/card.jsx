@@ -36,7 +36,6 @@ function card({ movie }) {
         };
       }, [win, screen.width]);
 
-    console.log(win.width);
 
     const progress = Math.round(movie.vote_average * 10);
     const bg = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;

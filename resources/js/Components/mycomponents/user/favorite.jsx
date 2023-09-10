@@ -85,9 +85,9 @@ function favorite(movies) {
         <div className=" mt-5 text-my_gray2">
             <div className="flex flex-wrap gap-4">
                 {movie.map((movie) => (
-                    <div className="flex gap-4 bg-white rounded drop-shadow-md  md:w-1/6 w-full">
+                    <div className="flex gap-4 bg-white rounded drop-shadow-md  md:h-max md:w-72 w-full overflow-hidden">
                         <img
-                            className=" h-max w-1/2 rounded-l"
+                            className=" h-full w-1/2 rounded-l"
                             src={
                                 "https://image.tmdb.org/t/p/w500/" +
                                 movie.poster_path
@@ -96,7 +96,7 @@ function favorite(movies) {
                         />
                         <div className=" px-2 py-4 flex flex-col justify-between w-full">
                             <div className="grid gap-4">
-                                <h1 className="text-lg font-bold">{gettitle(movie.id,movie)}</h1>
+                                <h1 className="text-lg font-bold truncate">{gettitle(movie.id,movie)}</h1>
                                 <h1 className="text-lg underline">
                                     {getdate(movie.id,movie)}
                                 </h1>
@@ -107,7 +107,7 @@ function favorite(movies) {
                                     {movie.vote_average.toFixed(1)}
                                 </div>
                             </div>
-                            <div className="grid justify-items-end gap-4">
+                            <div className="grid justify-items-end gap-4 md:flex md:mt-4">
                                 <div
                                     className=" bg-my_gray2 w-max h-max rounded-md text-white"
                                     title="view movie"
