@@ -7,7 +7,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { FcGoogle } from "react-icons/fc";
-import vid from "../../../../../../Downloads/pexels-tima-miroshnichenko-7989632 (2160p).mp4";
+import vid from "../../assetes/project/pexels-tima-miroshnichenko-7989632 (2160p).mp4";
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({

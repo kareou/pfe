@@ -5,7 +5,7 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
-import vid from "../../../../../../Downloads/pexels-tima-miroshnichenko-7989632 (2160p).mp4";
+import vid from "../../assetes/project/pexels-tima-miroshnichenko-7989632 (2160p).mp4";
 import { FcGoogle } from "react-icons/fc";
 import { IoIosArrowBack } from "react-icons/io";
 import Button from "@mui/material/Button";

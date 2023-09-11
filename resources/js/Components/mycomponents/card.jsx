@@ -2,7 +2,7 @@ import * as React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import im from "../../../../../../Downloads/Ellipse 10.svg";
+import im from "../../assetes/project/Ellipse 10.svg";
 import { useEffect, useState } from "react";
 import { Link } from "@inertiajs/react";
 
@@ -46,7 +46,7 @@ function card({ movie }) {
             </Link>
             <div className=" relative rounded-full -mt-8 ml-1 lg:-mt-12">
                 <img className="absolute h-[1.7rem] lg:h-12" src={im} alt="" />
-                <h1 className="absolute pt-2 pl-[.4rem] font-bold text-white text-xxs lg:text-base">
+                <h1 className="absolute pt-2 pl-[.4rem] lg:pt-4 lg:pl-2 font-bold text-white text-xxs lg:text-sm">
                     {progress}%
                 </h1>
                 {win.width > 1024 && (
