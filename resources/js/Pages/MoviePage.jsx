@@ -15,6 +15,9 @@ import { usePage } from "@inertiajs/react";
 import Nav from "../Components/mycomponents/nav";
 import { useForm } from "@inertiajs/react";
 import Rating from '@mui/material/Rating';
+import Footer from "../Components/mycomponents/footer";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MoviePqge(props, { auth }) {
     const [movie, setMovies] = useState([]);
@@ -51,7 +54,7 @@ function MoviePqge(props, { auth }) {
         if (
             page.props.auth.user &&
             page.props.auth.user.favorite &&
-            page.props.auth.user.favorite.includes(props.movie)
+            page.props.auth.user.favorite.includes(props.movie+":"+"movie")
         ) {
             setinfav(true);
         }
@@ -59,7 +62,7 @@ function MoviePqge(props, { auth }) {
         if (
             page.props.auth.user &&
             page.props.auth.user.watchlist &&
-            page.props.auth.user.watchlist.includes(props.movie)
+            page.props.auth.user.watchlist.includes(props.movie+":"+"movie")
         ) {
             setinwatchlist(true);
         }
@@ -67,7 +70,7 @@ function MoviePqge(props, { auth }) {
         if (
             page.props.auth.user &&
             page.props.auth.user.watched &&
-            page.props.auth.user.watched.includes(props.movie)
+            page.props.auth.user.watched.includes(props.movie+":"+"movie")
         ) {
             setinwatched(true);
         }
@@ -89,24 +92,47 @@ function MoviePqge(props, { auth }) {
 
     function submit(e) {
         e.preventDefault();
+        if (!page.props.auth.user)
+        {
+            toast.error('You must be logged in to add to favorites');
+            return;
+        }
+
         post("/favorite");
+        location.reload();
+        toast.success('Added to favorites');
     }
 
     function submit2(e) {
         e.preventDefault();
+        if (!page.props.auth.user)
+        {
+            toast.error('You must be logged in to add to watchlist');
+            return;
+        }
         post("/watchlist");
+        location.reload();
+        toast.success('Added to watchlist');
     }
 
     function submit3(e) {
         e.preventDefault();
+        if (!page.props.auth.user)
+        {
+            toast.error('You must be logged in to add to watched');
+            return;
+        }
         post("/watched");
+        location.reload();
+        toast.success('Added to watched');
     }
 
 
     return (
         <>
+        <ToastContainer />
             {!isLoading && (
-                <div className="pt-4 z-0 container mx-auto">
+                <div className="pt-4 z-0 container mx-auto flex flex-col justify-between">
                     <Nav auth={page.props.auth} />
                     <div className=" mt-10">
                         <div
@@ -206,6 +232,7 @@ function MoviePqge(props, { auth }) {
                                                 />
                                             </button>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -216,8 +243,10 @@ function MoviePqge(props, { auth }) {
                             <Recomandation movie={movie} type="movie" />
                         </div>
                     </div>
+                    <Footer />
                 </div>
             )}
+
         </>
     );
 }

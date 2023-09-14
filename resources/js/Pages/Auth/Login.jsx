@@ -39,7 +39,7 @@ export default function Login({ status, canResetPassword }) {
                     {status}
                 </div>
             )}
-            <div className=" box-border ">
+            <div className=" box-border md:block hidden">
                 <video
                     autoPlay
                     loop
@@ -53,14 +53,14 @@ export default function Login({ status, canResetPassword }) {
                     }}
                 ></video>
             </div>
-            <div className="p-8 ml-24 grid gap-1 ">
+            <div className="p-8 md:ml-24 grid gap-1 ">
                 <h1 className=" text-2xl text-my_gray2 font-bold">
                     Sign in to moviedb
                 </h1>
 
                 <a
                     href={route("login.redirect")}
-                    className="flex items-center border border-my_gray/60 justify-center mt-4 w-96 h-12 bg-my_blue text-my_gray2 rounded-md"
+                    className="flex items-center border border-my_gray/60 justify-center mt-4 md:w-96 w-80 h-12 bg-my_blue text-my_gray2 rounded-md"
                 >
                     <FcGoogle className="w-6 h-6 mr-2" />
                     <span className="text-sm font-semibold">
@@ -85,7 +85,7 @@ export default function Login({ status, canResetPassword }) {
                             type="email"
                             name="email"
                             value={data.email}
-                            className="  mt-1 block w-96 focus:ring-my_red/50 focus:ring-1 focus:border-none focus:shadow-my_red/75 focus:shadow-lg sm:text-sm border-gray-300 rounded-md"
+                            className="  mt-1 block md:w-96 w-80 focus:ring-my_red/50 focus:ring-1 focus:border-none focus:shadow-my_red/75 focus:shadow-lg sm:text-sm border-gray-300 rounded-md"
                             autoComplete="username"
                             isFocused={true}
                             onChange={(e) => setData("email", e.target.value)}
@@ -106,7 +106,7 @@ export default function Login({ status, canResetPassword }) {
                             type="password"
                             name="password"
                             value={data.password}
-                            className="  mt-1 block w-96 focus:ring-my_red/50 focus:ring-1 focus:border-none focus:shadow-my_red/75 focus:shadow-lg sm:text-sm border-gray-300 rounded-md"
+                            className="  mt-1 block md:w-96 w-80 focus:ring-my_red/50 focus:ring-1 focus:border-none focus:shadow-my_red/75 focus:shadow-lg sm:text-sm border-gray-300 rounded-md"
                             autoComplete="current-password"
                             onChange={(e) =>
                                 setData("password", e.target.value)
@@ -143,7 +143,7 @@ export default function Login({ status, canResetPassword }) {
                     </div>
 
                     <PrimaryButton
-                        className=" flex justify-center  mt-4 w-96  sm:text-sm border-gray-300 rounded-md"
+                        className=" flex justify-center  mt-4 md:w-96 w-80  sm:text-sm border-gray-300 rounded-md"
                         disabled={processing}
                     >
                         Log in

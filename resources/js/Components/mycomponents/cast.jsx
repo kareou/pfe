@@ -21,7 +21,7 @@ function cast({ movie, type }) {
                 <div className="w-[5px] h-[40px] bg-my_red"></div>
                 <h1 className=" text-my_gray2 text-xl font-bold">Top Cast</h1>
             </div>
-            <div className="flex gap-4 flex-wrap  border-b border-b-my_red pb-5">
+            <div className="flex gap-4 flex-wrap md:justify-start justify-center  border-b border-b-my_red pb-5">
                 {cast.slice(0, 8).map((actor) => (
                     <div
                         key={actor.id}

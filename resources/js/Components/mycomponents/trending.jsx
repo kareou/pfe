@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchMovies } from './service';
 import Card from './card';
-import photo from '../../../../../Rectangle 49.png';
+import photo from '@/assetes/project/Rectangle 49.png';
 
 const DivComponent = ({ children }) => (
     <div className="item">{children}</div>

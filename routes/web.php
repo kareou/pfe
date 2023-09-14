@@ -74,15 +74,23 @@ Route::get('/actor/{actor}',function($actor){
     ]);
 })->name('actors');
 
-Route::get('/search/{keyword}',function($keyword){
+Route::get('/search',function(){
     return Inertia::render('Search',[
-        'keyword' => $keyword
+        'keyword' => request()->searchTerm
     ]);
 })->name('search');
 
 Route::get('/edit',function(){
     return Inertia::render('Profile/Update');
 })->name('edit');
+
+Route::get('/movies',function(){
+    return Inertia::render('movies');
+})->name('movies');
+
+Route::get('/tvshows',function(){
+    return Inertia::render('tvs');
+})->name('tvshows');
 
 Route::post('/update', [ProfileController::class, 'updateimg'])->name('updateimg');
 

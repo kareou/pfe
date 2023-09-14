@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = "da9925427b9b3e99c966f87cb43b66f5";
+const API_KEY = "da9925427b9b3e99c966f87cb43b66f5"
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export const fetchMovies = async (type = 'trending/movie/day',search) => {
@@ -120,5 +120,30 @@ export const fetchTvSeason = async (id, season) => {
 
 export const fetchmomovieseqrch = async (id, page) => {
     const response = await axios.get(`${BASE_URL}/search/multi?api_key=${API_KEY}&query=${id}&page=${page}`);
+    return response.data.results;
+}
+
+export const fetchmoviegend = async () => {
+    const response = await axios.get(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}`);
+    return response.data.genres;
+}
+
+export const fetchtvgenre = async () => {
+    const response = await axios.get(`${BASE_URL}/genre/tv/list?api_key=${API_KEY}`);
+    return response.data.genres;
+}
+
+export const fetchmoviebygenre = async (id, page) => {
+    const response = await axios.get(`${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${id}&page=${page}`);
+    return response.data.results;
+}
+
+export const fetchtvbygenre = async (id, page) => {
+    const response = await axios.get(`${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=${id}&page=${page}`);
+    return response.data.results;
+}
+
+export const fetchtvseries = async () => {
+    const response = await axios.get(`${BASE_URL}/tv/airing_today?api_key=${API_KEY}`);
     return response.data.results;
 }

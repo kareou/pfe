@@ -72,17 +72,20 @@ function media({ movie,type }) {
                 <div className="w-[5px] h-[40px] bg-my_red"></div>
                 <h1 className=" text-my_gray2 text-xl font-bold">Medias</h1>
             </div>
-            <div className="md:flex">
+            <div className="flex md:flex-nowrap flex-wrap">
                 <div className="md:w-[80%] w-full">
                     <ThemeProvider theme={theme}>
                         <Tabs
                             value={value}
                             onChange={handleChange}
-                            aria-label="basic tabs example"
+                            variant="scrollable"
+                            scrollButtons={false}
+                            aria-label="scrollable prevent tabs example"
+
                         >
                             <Tab
                                 label="Traillers"
-                                style={{ color: "#3A4750", fontWeight: "600" }}
+                                style={{ color: "#3A4750", fontWeight: "bold" }}
                             />
                             <Tab
                                 label="Backdrops"

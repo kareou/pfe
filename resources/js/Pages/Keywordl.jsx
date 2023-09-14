@@ -10,6 +10,7 @@ import { get, set } from "lodash";
 import test from "../../../public/rrrainbow.svg";
 import { Menu } from "@headlessui/react";
 import {AiOutlineDown} from "react-icons/ai";
+import Footer from "../Components/mycomponents/footer";
 
 function Keywordll(props) {
     const page = usePage();
@@ -65,7 +66,7 @@ function Keywordll(props) {
     const color = "black";
 
     return (
-        <div className="container mx-auto pt-4">
+        <div className="container mx-auto pt-4 flex flex-col justify-between">
             <Nav auth={page.props.auth} />
 
             <div className=" mt-10 ">
@@ -188,12 +189,13 @@ function Keywordll(props) {
                         ))}
                     </div>
                     {indexp === 1 && (
-                        <button onClick={loadmore} className="mx-2">
+                        <button onClick={loadmore} className="mx-2 my-4 bg-my_red text-my_white px-4 py-2 rounded font-bold w-[150px] text-center">
                             load more
                         </button>
                     )}
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

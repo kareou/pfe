@@ -104,7 +104,7 @@ class ProfileController extends Controller
                 unset($watchlist[$index]);
                 $user->watchlist = $watchlist;
                 $user->save();
-                return Redirect::back();
+                return redirect()->back()->refresh();
             }
         }
 

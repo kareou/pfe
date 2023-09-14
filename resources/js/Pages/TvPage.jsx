@@ -13,6 +13,7 @@ import Nav from "../Components/mycomponents/nav";
 import { useForm } from "@inertiajs/react";
 import { AiFillStar } from "react-icons/ai";
 import Rating from "@mui/material/Rating";
+import Footer from "../Components/mycomponents/footer";
 
 function MoviePqge(props, { auth }) {
     const [movie, setMovies] = useState([]);
@@ -53,21 +54,21 @@ function MoviePqge(props, { auth }) {
         useEffect(() => {
             if (
                 page.props.auth.user.favorite &&
-                page.props.auth.user.favorite.includes(props.movie)
+                page.props.auth.user.favorite.includes(props.movie+":"+"t")
             ) {
                 setinfav(true);
             }
 
             if (
                 page.props.auth.user.watchlist &&
-                page.props.auth.user.watchlist.includes(props.movie)
+                page.props.auth.user.watchlist.includes(props.movie+":"+"t")
             ) {
                 setinwatchlist(true);
             }
 
             if (
                 page.props.auth.user.watched &&
-                page.props.auth.user.watched.includes(props.movie)
+                page.props.auth.user.watched.includes(props.movie+":"+"t")
             ) {
                 setinwatched(true);
             }
@@ -88,21 +89,27 @@ function MoviePqge(props, { auth }) {
     }
 
     function submit(e) {
-        if (!page.props.auth.user) return;
         e.preventDefault();
+        if (!page.props.auth.user) return;
         post("/favorite");
+        location.reload();
+
     }
 
     function submit2(e) {
-        if (!page.props.auth.user) return;
         e.preventDefault();
+        if (!page.props.auth.user) return;
         post("/watchlist");
+        location.reload();
+
     }
 
     function submit3(e) {
-        if (!page.props.auth.user) return;
         e.preventDefault();
+        if (!page.props.auth.user) return;
         post("/watched");
+        location.reload();
+
     }
 
     const time = (min) => {
@@ -117,9 +124,9 @@ function MoviePqge(props, { auth }) {
     return (
         <>
             {!isLoading && (
-                <div className="pt-4 z-0 container mx-auto">
+                <div className="pt-4 z-0 container mx-auto flex flex-col justify-between">
                     <Nav auth={page.props.auth} />
-                    <div className=" mt-10">
+                    <div className=" my-10">
                         <div
                             className=" w-full h-max p-8  text-my_white relative"
                             style={{
@@ -237,7 +244,7 @@ function MoviePqge(props, { auth }) {
                                                 />
                                             </button>
                                         </form>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -320,6 +327,7 @@ function MoviePqge(props, { auth }) {
                             <Recomandation movie={movie} type={"tv"} />
                         </div>
                     </div>
+                    <Footer />
                 </div>
             )}
         </>

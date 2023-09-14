@@ -11,6 +11,7 @@ import Carrier from "@/Components/mycomponents/actor/carrier";
 import { Skeleton } from "@mui/material";
 import Nav from "@/Components/mycomponents/nav";
 import { usePage } from "@inertiajs/react";
+import Footer from "@/Components/mycomponents/footer";
 
 function actor(props) {
     const id = props.actor;
@@ -37,8 +38,10 @@ function actor(props) {
         });
     }, [actor]);
 
+    console.log(knownFor);
+
     return (
-        <div className="py-4 container mx-auto">
+        <div className="pt-4 container mx-auto flex flex-col justify-between">
             <Nav auth={page.props.auth} />
             <div className="mx-8 text-my_gray2 mt-10">
                 {!loading && (
@@ -78,6 +81,7 @@ function actor(props) {
                     </>
                 )}
             </div>
+            <Footer />
         </div>
     );
 }

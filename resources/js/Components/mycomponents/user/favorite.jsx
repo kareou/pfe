@@ -3,15 +3,16 @@ import { useState, useEffect } from "react";
 import { fetchMovieDetails, fetchTv } from "../service";
 import Card from "../card";
 import { AiOutlineEye } from "react-icons/ai";
-import { ImBin } from "react-icons/im";
 import { AiFillStar } from "react-icons/ai";
-import { Link } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
+import Delet from "../delete";
 
-
-
-function favorite(movies) {
+function favorite(movies, type) {
     const fav = movies.movies;
     const [movie, setMovie] = useState([]);
+    const [warning, setwarning] = useState(false);
+
+
 
     if (fav) {
         useEffect(() => {
@@ -21,11 +22,10 @@ function favorite(movies) {
                     fetchMovieDetails(tmp[0]).then((response) => {
                         setMovie((movie) => [...movie, response]);
                     });
-                }
-                else {
+                } else {
                     fetchTv(tmp[0]).then((response) => {
-                    setMovie((movie) => [...movie, response]);
-                });
+                        setMovie((movie) => [...movie, response]);
+                    });
                 }
             });
         }, [fav]);
@@ -35,7 +35,7 @@ function favorite(movies) {
         let test = fav.find((f) => {
             const tmp = f.split(":");
             return parseInt(tmp[0]) === parseInt(id);
-          });
+        });
 
         if (!test) {
             return;
@@ -48,11 +48,11 @@ function favorite(movies) {
         }
     };
 
-    const gettitle = (id,mov) => {
+    const gettitle = (id, mov) => {
         let test = fav.find((f) => {
             const tmp = f.split(":");
             return parseInt(tmp[0]) === parseInt(id);
-          });
+        });
         if (!test) {
             return;
         }
@@ -64,11 +64,11 @@ function favorite(movies) {
         }
     };
 
-    const getdate = (id,mov) => {
+    const getdate = (id, mov) => {
         let test = fav.find((f) => {
             const tmp = f.split(":");
             return parseInt(tmp[0]) === parseInt(id);
-          });
+        });
         if (!test) {
             return;
         }
@@ -79,6 +79,8 @@ function favorite(movies) {
             return mov.first_air_date;
         }
     };
+
+
 
 
     return (
@@ -96,9 +98,11 @@ function favorite(movies) {
                         />
                         <div className=" px-2 py-4 flex flex-col justify-between w-full">
                             <div className="grid gap-4">
-                                <h1 className="text-lg font-bold truncate">{gettitle(movie.id,movie)}</h1>
+                                <h1 className="text-lg font-bold truncate">
+                                    {gettitle(movie.id, movie)}
+                                </h1>
                                 <h1 className="text-lg underline">
-                                    {getdate(movie.id,movie)}
+                                    {getdate(movie.id, movie)}
                                 </h1>
                                 <div className="bg-my_gray rounded-lg text-lg px-1 gap-1 flex w-min h-min text-my_white">
                                     <span>
@@ -113,17 +117,12 @@ function favorite(movies) {
                                     title="view movie"
                                 >
                                     <Link href={getroute(movie.id)}>
-                                    <AiOutlineEye className="text-2xl m-2" />
+                                        <AiOutlineEye className="text-2xl m-2" />
                                     </Link>
                                 </div>
-                                <form action="">
-                                    <button
-                                        className=" bg-my_red text-white w-max h-max rounded-md"
-                                        title="remove from favorite"
-                                    >
-                                        <ImBin className="text-2xl m-2"/>
-                                    </button>
-                                </form>
+                                <div>
+                                    <Delet movie={movie} type={movies.type} section={getroute(movie.id)} />
+                                    </div>
                             </div>
                         </div>
                     </div>

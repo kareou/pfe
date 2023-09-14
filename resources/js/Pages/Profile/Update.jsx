@@ -6,6 +6,9 @@ import { usePage, useForm } from "@inertiajs/react";
 import Nav from "@/Components/mycomponents/Nav";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
+import Footer from "@/Components/mycomponents/Footer";
+import PrimaryButton from '@/Components/PrimaryButton';
+
 
 function update({ mustVerifyEmail, status }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -45,12 +48,22 @@ function update({ mustVerifyEmail, status }) {
     }
 
     return (
-        <div className=" container mx-auto">
+        <div className=" container pt-4 mx-auto flex flex-col justify-between">
             <Nav auth={auth} />
-            <div className="">
-                <div className="">
-                    <h1>edit image</h1>
-                    <form action="" className="flex" onSubmit={handleSubmit}>
+            <div className="mt-10 grid grid-cols-2 gap-8">
+
+                <UpdateProfileInformationForm
+                    mustVerifyEmail={false}
+                    status={null}
+                    className="max-w-xl bg-white rounded shodow-lg p-8"
+                />
+                <UpdatePasswordForm className="max-w-xl bg-white rounded shodow-lg p-8" />
+                <div className="bg-white rounded shodow-lg max-w-xl p-8">
+                    <h2 className="text-lg font-bold border-b">Update image</h2>
+                    <h2 className="mt-1 text-sm text-gray-600">Update your account's profile image</h2>
+                    <form action="" className="grid justify-items-start gap-4 mt-5" onSubmit={handleSubmit}>
+                    <div className="flex justify-items-center">
+
                         <img
                             src={
                                 data.image
@@ -61,7 +74,6 @@ function update({ mustVerifyEmail, status }) {
                             alt=""
                             className="w-28 h-28 rounded-full object-cover"
                         />
-                        <div className="grid align-middle justify-items-center">
                             <Button
                                 component="label"
                                 variant="contained"
@@ -84,22 +96,14 @@ function update({ mustVerifyEmail, status }) {
                                 Upload a file
                                 <VisuallyHiddenInput type="file" />
                             </Button>
-                            <input
-                                className="bg-my_gray2 text-my_white px-2 h-10 drop-shadow-md rounded"
-                                type="submit"
-                                value="submite"
-                            />
+
                         </div>
+                        <PrimaryButton disabled={processing}>Save</PrimaryButton>
                     </form>
                 </div>
-                <UpdateProfileInformationForm
-                    mustVerifyEmail={false}
-                    status={null}
-                    className="max-w-xl"
-                />
-                <UpdatePasswordForm className="max-w-xl" />
-                <DeleteUserForm className="max-w-xl" />
+                <DeleteUserForm className="max-w-xl bg-white rounded shodow-lg p-8" />
             </div>
+            <Footer />
         </div>
     );
 }

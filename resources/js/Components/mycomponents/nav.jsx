@@ -3,13 +3,19 @@ import { Link, Head } from "@inertiajs/react";
 import { CiSearch } from "react-icons/ci";
 import Dropdown from "./profile_dropdown";
 import { BiUser } from "react-icons/bi";
+import { router } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 
 function nav({ auth }) {
     const [toggle, setToggle] = React.useState(false);
+    const [menu, setMenu] = React.useState(false);
 
     if (auth.user) {
         if (auth.user.image === null) {
-            var image = "https://ui-avatars.com/api/?name=" + auth.user.name + "&background=random";
+            var image =
+                "https://ui-avatars.com/api/?name=" +
+                auth.user.name +
+                "&background=random";
         } else {
             if (auth.user.image.includes("https://")) {
                 var image = auth.user.image;
@@ -19,7 +25,15 @@ function nav({ auth }) {
             }
         }
     }
-    const [searchTerm, setSearchTerm] = React.useState("");
+
+    const { data, setData, get, processing, errors } = useForm({
+        searchTerm: "",
+    });
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        get("/search");
+    }
 
     return (
         <>
@@ -32,29 +46,56 @@ function nav({ auth }) {
                         Movie
                         <span className=" text-my_red">DB</span>
                     </Link>
-                    <div className="flex gap-2 ">
+                    <div className="flex gap-2 relative">
                         <div className="flex shadow-md text-center border rounded-md px-2 border-my_gray">
-                            <form
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    route("search", { keyword: searchTerm });
-                                }}
-                                className="flex"
-                            >
+                            <form onSubmit={handleSubmit} className="flex">
                                 <input
                                     className="search h-7 bg-my_white w-60 border-none focus:outline-none focus:ring-0"
                                     type="search"
                                     placeholder="Find a movie"
-                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    value={data.searchTerm}
+                                    onChange={(e) =>
+                                        setData("searchTerm", e.target.value)
+                                    }
                                 />
-                            <Link
-                            href={route("search", { keyword: searchTerm })}
-                            type="submit">
-                                <CiSearch className="text-my_gray2 text-lg text-center h-7" />
-                            </Link>
+                                <button type="submit">
+                                    <CiSearch className="text-my_gray2 text-lg text-center h-7" />
+                                </button>
                             </form>
                         </div>
-                        <button className="">☰ Menu</button>
+                        <button
+                            onClick={() => setMenu(!menu)}
+                        className="">☰ Menu</button>
+                        {menu && (
+                        <div className="absolute -bottom-32 bg-my_gray2 rounded right-0 z-10 shadow-xl">
+                            <ul className="flex flex-col">
+                                <li className="border-b border-my_gray p-2">
+                                    <Link
+                                        className="text-my_white"
+                                        href={route("welcome")}
+                                    >
+                                        Home
+                                    </Link>
+                                </li>
+                                <li className="border-b border-my_gray p-2">
+                                    <Link
+                                        className="text-my_white"
+                                        href={route("movies")}
+                                    >
+                                        Movies
+                                    </Link>
+                                </li>
+                                <li className="border-b border-my_gray p-2">
+                                    <Link
+                                        className="text-my_white"
+                                        href={route("tvshows")}
+                                    >
+                                        TV Shows
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                        )}
                     </div>
                     <div className="flex gap-4">
                         {auth.user ? (
@@ -91,24 +132,19 @@ function nav({ auth }) {
                         ☰
                     </button>
                     <div className="flexshadow-md text-center border rounded-md px-2 border-my_gray">
-                        <form
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                console.log(e.target.value);
-                            }}
-                            className="flex"
-                        >
+                        <form onSubmit={handleSubmit} className="flex">
                             <input
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="search h-7 bg-my_white w-60 border-none focus:outline-none focus:ring-0"
+                                value={data.searchTerm}
+                                onChange={(e) =>
+                                    setData("searchTerm", e.target.value)
+                                }
+                                className="search h-7 bg-my_white w-full border-none focus:outline-none focus:ring-0"
                                 type="search"
                                 placeholder="Find a movie"
                             />
-                            <Link
-                            href={route("search", { keyword: searchTerm })}
-                            type="submit">
+                            <button type="submit">
                                 <CiSearch className="text-my_gray2 text-lg text-center h-7" />
-                            </Link>
+                            </button>
                         </form>
                     </div>
 
@@ -134,7 +170,7 @@ function nav({ auth }) {
                                         <img
                                             src={image}
                                             alt=""
-                                            className="w-15 h-15 m-2 rounded-full drop-shadow-md"
+                                            className="w-14 h-14 m-2 rounded-full drop-shadow-md"
                                         />
                                     </Link>
                                 )}
@@ -142,6 +178,12 @@ function nav({ auth }) {
                                 <ul className="flex flex-col">
                                     <li className="border-b border-my_gray p-2">
                                         <Link
+                                        onClick={() => {
+                                            setToggle(!toggle);
+                                            document.body.style.overflow =
+                                                "auto";
+                                        }
+                                        }
                                             className="text-my_white"
                                             href={route("welcome")}
                                         >
@@ -150,16 +192,28 @@ function nav({ auth }) {
                                     </li>
                                     <li className="border-b border-my_gray p-2">
                                         <Link
+                                        onClick={() => {
+                                            setToggle(!toggle);
+                                            document.body.style.overflow =
+                                                "auto";
+                                        }
+                                        }
                                             className="text-my_white"
-                                            href={route("welcome")}
+                                            href={route("movies")}
                                         >
                                             Movies
                                         </Link>
                                     </li>
                                     <li className="border-b border-my_gray p-2">
                                         <Link
+                                        onClick={() => {
+                                            setToggle(!toggle);
+                                            document.body.style.overflow =
+                                                "auto";
+                                        }
+                                        }
                                             className="text-my_white"
-                                            href="#"
+                                            href={route("tvshows")}
                                         >
                                             TV Shows
                                         </Link>
@@ -168,6 +222,13 @@ function nav({ auth }) {
                                         <>
                                             <li className="bg-my_red p-2 border-b border-my_gray2">
                                                 <Link
+                                                onClick={() => {
+                                                    setToggle(!toggle);
+                                                    document.body.style.overflow =
+                                                        "auto";
+                                                }
+                                                }
+
                                                     className="text-my_white"
                                                     href={route("login")}
                                                 >
@@ -176,6 +237,12 @@ function nav({ auth }) {
                                             </li>
                                             <li className="border-b bg-my_white border-my_gray p-2">
                                                 <Link
+                                                onClick={() => {
+                                                    setToggle(!toggle);
+                                                    document.body.style.overflow =
+                                                        "auto";
+                                                }
+                                                }
                                                     className="text-my_gray2"
                                                     href={route("register")}
                                                 >
@@ -187,6 +254,12 @@ function nav({ auth }) {
                                         <>
                                             <li className="border-b border-my_gray p-2 bg-my_white">
                                                 <Link
+                                                onClick={() => {
+                                                    setToggle(!toggle);
+                                                    document.body.style.overflow =
+                                                        "auto";
+                                                }
+                                                }
                                                     className="text-my_gray2"
                                                     href={route("logout")}
                                                     method="post"

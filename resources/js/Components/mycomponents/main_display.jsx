@@ -91,39 +91,84 @@ function main_display() {
                 console.error("Error fetching video ID:", error);
             }
         };
-        fetchVideoId(
-
-        );
+        fetchVideoId();
     }, [all[i]?.id]);
 
+    const [win, setWin] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
+
+    useEffect(() => {
+        const handleResize = () => {
+            setWin({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        };
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [win, screen.width]);
 
     return (
         <div className="md:flex gap-8 mt-10 container">
-            <div className="vid md:w-[850px] md:h-[548px] h-[300px] w-screen relative drop-shadow-lg">
+            <div className="vid md:w-[850px] md:h-[548px] h-[300px] relative drop-shadow-lg">
                 {play && (
                     <>
                         {!ready && (
-                            <Skeleton
-                                variant="rectangular"
-                                width={850}
-                                height={548}
-                                sx={{
-                                    bgcolor: "#303841",
-                                    boxShadow: 8,
+                            <>
+                                {win.width > 1024 && (
+                                    <Skeleton
+                                        variant="rectangular"
+                                        width={850}
+                                        height={548}
+                                        sx={{
+                                            bgcolor: "#303841",
+                                            boxShadow: 8,
+                                            position: "absolute",
+                                        }}
+                                    />
+                                )}
+                                {win.width <= 1024 && (
+                                    <Skeleton
+                                        variant="rectangular"
+                                        width={win.width}
+                                        height={300}
+                                        sx={{
+                                            bgcolor: "#303841",
+                                            boxShadow: 8,
+                                            position: "absolute",
+                                        }}
+                                    />
+                                )}
+                            </>
+                        )}
+                        {win.width > 1024 && (
+                            <YouTube
+                                videoId={videoId}
+                                opts={{
+                                    width: "100%",
+                                    height: "548px",
                                     position: "absolute",
+                                    playerVars: { autoplay: 1 },
                                 }}
+                                onReady={handelred}
                             />
                         )}
-                        <YouTube
-                            videoId={videoId}
-                            opts={{
-                                width: "100%", // Set the width to 100% to make it responsive
-                                height: "100%",
-                                position: "absolute",
-                                playerVars: { autoplay: 1 },
-                            }}
-                            onReady={handelred}
-                        />
+                        {win.width <= 1024 && (
+                            <YouTube
+                                videoId={videoId}
+                                opts={{
+                                    width: "100%",
+                                    height: "300px",
+                                    position: "absolute",
+                                    playerVars: { autoplay: 1 },
+                                }}
+                                onReady={handelred}
+                            />
+                        )}
                         {ready && (
                             <div className="absolute top-5 right-5">
                                 <h1
@@ -177,9 +222,13 @@ function main_display() {
                                 />
                             </Link>
                             <div className=" text-my_white font-bold">
-                                <h1 className=" md:text-2xl text-lg">{all[i]?.title}</h1>
+                                <h1 className=" md:text-2xl text-lg">
+                                    {all[i]?.title}
+                                </h1>
                                 <h2 className=" text-sm font-thin block md:hidden">
-                                    {tags && tags.length > 30 ? tags.slice(0, 30) + "..." : tags}
+                                    {tags && tags.length > 30
+                                        ? tags.slice(0, 30) + "..."
+                                        : tags}
                                 </h2>
                                 <h2 className=" text-sm font-thin hidden md:block">
                                     {tags}
